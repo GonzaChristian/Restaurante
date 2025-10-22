@@ -118,11 +118,8 @@ public class SystemView extends javax.swing.JFrame {
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
-        jPanel16 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
-        jPanel18 = new javax.swing.JPanel();
-        jLabel17 = new javax.swing.JLabel();
         jPanel17 = new javax.swing.JPanel();
         jButton9 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
@@ -251,6 +248,7 @@ public class SystemView extends javax.swing.JFrame {
         jTable4 = new javax.swing.JTable();
         jLabel94 = new javax.swing.JLabel();
         jButton11 = new javax.swing.JButton();
+        jLabel17 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jPanel56 = new javax.swing.JPanel();
         jTextField3 = new javax.swing.JTextField();
@@ -284,7 +282,6 @@ public class SystemView extends javax.swing.JFrame {
         jScrollPane5 = new javax.swing.JScrollPane();
         jTable6 = new javax.swing.JTable();
         jPanel7 = new javax.swing.JPanel();
-        jPanel8 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel23 = new javax.swing.JPanel();
         jLabel20 = new javax.swing.JLabel();
@@ -293,14 +290,14 @@ public class SystemView extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTabbedPane1.setBackground(new java.awt.Color(153, 153, 255));
+        jTabbedPane1.setBackground(new java.awt.Color(210, 166, 129));
 
         jPanel9.setLayout(new java.awt.GridLayout(1, 0));
 
-        jPanel10.setBackground(new java.awt.Color(230, 230, 254));
+        jPanel10.setBackground(new java.awt.Color(255, 240, 228));
         jPanel10.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel19.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel19.setBackground(new java.awt.Color(209, 188, 172));
         jPanel19.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel51.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -335,7 +332,7 @@ public class SystemView extends javax.swing.JFrame {
 
         jPanel10.add(jPanel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 200, 200, 170));
 
-        jPanel21.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel21.setBackground(new java.awt.Color(209, 188, 172));
         jPanel21.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel52.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -370,7 +367,7 @@ public class SystemView extends javax.swing.JFrame {
 
         jPanel10.add(jPanel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, 200, 170));
 
-        jPanel32.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel32.setBackground(new java.awt.Color(209, 188, 172));
         jPanel32.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel54.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -405,7 +402,7 @@ public class SystemView extends javax.swing.JFrame {
 
         jPanel10.add(jPanel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 370, 200, 170));
 
-        jPanel33.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel33.setBackground(new java.awt.Color(209, 188, 172));
         jPanel33.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel56.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -440,7 +437,7 @@ public class SystemView extends javax.swing.JFrame {
 
         jPanel10.add(jPanel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 540, 200, 170));
 
-        jPanel35.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel35.setBackground(new java.awt.Color(209, 188, 172));
         jPanel35.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel60.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -475,7 +472,7 @@ public class SystemView extends javax.swing.JFrame {
 
         jPanel10.add(jPanel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 200, 200, 170));
 
-        jPanel36.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel36.setBackground(new java.awt.Color(209, 188, 172));
         jPanel36.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel62.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -510,7 +507,7 @@ public class SystemView extends javax.swing.JFrame {
 
         jPanel10.add(jPanel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 370, -1, -1));
 
-        jPanel34.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel34.setBackground(new java.awt.Color(209, 188, 172));
         jPanel34.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel58.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -545,7 +542,7 @@ public class SystemView extends javax.swing.JFrame {
 
         jPanel10.add(jPanel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 30, 200, 170));
 
-        jPanel37.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel37.setBackground(new java.awt.Color(209, 188, 172));
         jPanel37.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel64.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -580,7 +577,7 @@ public class SystemView extends javax.swing.JFrame {
 
         jPanel10.add(jPanel37, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 540, -1, -1));
 
-        jPanel40.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel40.setBackground(new java.awt.Color(209, 188, 172));
         jPanel40.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel70.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -615,7 +612,7 @@ public class SystemView extends javax.swing.JFrame {
 
         jPanel10.add(jPanel40, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 370, 200, 170));
 
-        jPanel38.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel38.setBackground(new java.awt.Color(209, 188, 172));
         jPanel38.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel66.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -650,7 +647,7 @@ public class SystemView extends javax.swing.JFrame {
 
         jPanel10.add(jPanel38, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 30, 200, 170));
 
-        jPanel39.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel39.setBackground(new java.awt.Color(209, 188, 172));
         jPanel39.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel68.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -685,7 +682,7 @@ public class SystemView extends javax.swing.JFrame {
 
         jPanel10.add(jPanel39, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 200, 200, 170));
 
-        jPanel41.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel41.setBackground(new java.awt.Color(209, 188, 172));
         jPanel41.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel72.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -720,7 +717,7 @@ public class SystemView extends javax.swing.JFrame {
 
         jPanel10.add(jPanel41, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 540, -1, -1));
 
-        jPanel43.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel43.setBackground(new java.awt.Color(209, 188, 172));
         jPanel43.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel76.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -755,7 +752,7 @@ public class SystemView extends javax.swing.JFrame {
 
         jPanel10.add(jPanel43, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 200, 200, 170));
 
-        jPanel42.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel42.setBackground(new java.awt.Color(209, 188, 172));
         jPanel42.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel74.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -790,7 +787,7 @@ public class SystemView extends javax.swing.JFrame {
 
         jPanel10.add(jPanel42, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 30, 200, 170));
 
-        jPanel44.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel44.setBackground(new java.awt.Color(209, 188, 172));
         jPanel44.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel78.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -825,7 +822,7 @@ public class SystemView extends javax.swing.JFrame {
 
         jPanel10.add(jPanel44, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 370, 200, 170));
 
-        jPanel45.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel45.setBackground(new java.awt.Color(209, 188, 172));
         jPanel45.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel80.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -860,7 +857,7 @@ public class SystemView extends javax.swing.JFrame {
 
         jPanel10.add(jPanel45, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 540, -1, -1));
 
-        jPanel48.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel48.setBackground(new java.awt.Color(209, 188, 172));
         jPanel48.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel86.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -895,7 +892,7 @@ public class SystemView extends javax.swing.JFrame {
 
         jPanel10.add(jPanel48, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 370, 200, 170));
 
-        jPanel47.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel47.setBackground(new java.awt.Color(209, 188, 172));
         jPanel47.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel84.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -930,7 +927,7 @@ public class SystemView extends javax.swing.JFrame {
 
         jPanel10.add(jPanel47, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 200, 200, 170));
 
-        jPanel46.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel46.setBackground(new java.awt.Color(209, 188, 172));
         jPanel46.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel82.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -965,7 +962,7 @@ public class SystemView extends javax.swing.JFrame {
 
         jPanel10.add(jPanel46, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 30, 200, 170));
 
-        jPanel49.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel49.setBackground(new java.awt.Color(209, 188, 172));
         jPanel49.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel88.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -1004,7 +1001,7 @@ public class SystemView extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Mesas", jPanel9);
 
-        jPanel3.setBackground(new java.awt.Color(230, 230, 254));
+        jPanel3.setBackground(new java.awt.Color(255, 240, 228));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -1014,7 +1011,7 @@ public class SystemView extends javax.swing.JFrame {
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20" }));
         jPanel3.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 40, -1, -1));
 
-        jPanel1.setBackground(new java.awt.Color(153, 153, 255));
+        jPanel1.setBackground(new java.awt.Color(209, 188, 172));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
@@ -1087,7 +1084,7 @@ public class SystemView extends javax.swing.JFrame {
         jPanel4.setBackground(new java.awt.Color(204, 204, 204));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel11.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel11.setBackground(new java.awt.Color(255, 240, 228));
         jPanel11.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
@@ -1100,24 +1097,24 @@ public class SystemView extends javax.swing.JFrame {
         ));
         jScrollPane3.setViewportView(jTable3);
 
-        jPanel11.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 1010, 390));
+        jPanel11.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, 1010, 410));
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel14.setText("Buscar:");
-        jPanel11.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, -1, -1));
+        jPanel11.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, -1, -1));
 
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField2ActionPerformed(evt);
             }
         });
-        jPanel11.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 30, 350, 30));
+        jPanel11.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 150, 350, 30));
 
         jButton4.setText("Buscar");
-        jPanel11.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 30, -1, 30));
+        jPanel11.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 150, -1, 30));
 
         jButton5.setText("Actualizar");
-        jPanel11.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 30, -1, 30));
+        jPanel11.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 150, -1, 30));
 
         jButton6.setText("🖨 Imprimir");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
@@ -1125,49 +1122,35 @@ public class SystemView extends javax.swing.JFrame {
                 jButton6ActionPerformed(evt);
             }
         });
-        jPanel11.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 520, 180, 40));
+        jPanel11.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 660, 180, 40));
 
         jButton7.setText("Ver Detalle");
-        jPanel11.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 520, 180, 40));
+        jPanel11.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 660, 180, 40));
 
         jButton8.setText("✔ Marcar Completado");
-        jPanel11.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 520, 180, 40));
+        jPanel11.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 660, 180, 40));
 
-        jPanel4.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 1070, 590));
-
-        jPanel16.setBackground(new java.awt.Color(102, 102, 255));
-        jPanel16.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 68)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(136, 92, 49));
         jLabel15.setText("ADMINISTRAR PEDIDOS");
         jLabel15.setToolTipText("");
-        jPanel16.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 20, 560, 60));
+        jPanel11.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 40, 790, 60));
 
-        jPanel4.add(jPanel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 1070, 110));
+        jPanel4.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1100, 750));
 
         jTabbedPane1.addTab("Administrar pedidos", jPanel4);
 
-        jPanel5.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel5.setBackground(new java.awt.Color(255, 240, 228));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel18.setBackground(new java.awt.Color(102, 102, 255));
-        jPanel18.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
-        jLabel17.setText("GESTIÓN DE PLATILLOS");
-        jLabel17.setToolTipText("");
-        jPanel18.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 30, 540, 60));
-
-        jPanel5.add(jPanel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 1070, 110));
-
-        jPanel17.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel17.setBackground(new java.awt.Color(209, 188, 172));
         jPanel17.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButton9.setText("Nuevo...");
-        jPanel17.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 120, 30));
+        jPanel17.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, 120, 30));
 
         jButton10.setText("Eliminar");
-        jPanel17.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 40, 120, 30));
+        jPanel17.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 160, 120, 30));
 
         javax.swing.GroupLayout jPanel26Layout = new javax.swing.GroupLayout(jPanel26);
         jPanel26.setLayout(jPanel26Layout);
@@ -1192,6 +1175,7 @@ public class SystemView extends javax.swing.JFrame {
         ));
         jPanel17.add(jTable5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
+        jPanel24.setBackground(new java.awt.Color(176, 142, 109));
         jPanel24.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel24.setPreferredSize(new java.awt.Dimension(440, 1000));
         jPanel24.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1714,7 +1698,7 @@ public class SystemView extends javax.swing.JFrame {
 
         jScrollPane6.setViewportView(jPanel24);
 
-        jPanel17.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 470, 500));
+        jPanel17.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, 470, 500));
 
         jTable4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jTable4.setModel(new javax.swing.table.DefaultTableModel(
@@ -1727,13 +1711,13 @@ public class SystemView extends javax.swing.JFrame {
         ));
         jScrollPane4.setViewportView(jTable4);
 
-        jPanel17.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 110, -1, 470));
+        jPanel17.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 230, -1, 470));
 
         jLabel94.setBackground(new java.awt.Color(255, 255, 255));
         jLabel94.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
-        jLabel94.setForeground(new java.awt.Color(102, 102, 255));
+        jLabel94.setForeground(new java.awt.Color(151, 114, 78));
         jLabel94.setText("MENÚ DEL DÍA");
-        jPanel17.add(jLabel94, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 40, 360, 50));
+        jPanel17.add(jLabel94, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 160, 360, 50));
 
         jButton11.setText("Modificar");
         jButton11.addActionListener(new java.awt.event.ActionListener() {
@@ -1741,15 +1725,21 @@ public class SystemView extends javax.swing.JFrame {
                 jButton11ActionPerformed(evt);
             }
         });
-        jPanel17.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 40, 120, 30));
+        jPanel17.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 160, 120, 30));
 
-        jPanel5.add(jPanel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 1070, 620));
+        jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 68)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(136, 92, 49));
+        jLabel17.setText("GESTIÓN DE PLATILLOS");
+        jLabel17.setToolTipText("");
+        jPanel17.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 30, 770, 60));
+
+        jPanel5.add(jPanel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 1070, 730));
 
         jTabbedPane1.addTab("Platillos", jPanel5);
 
-        jPanel6.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel6.setBackground(new java.awt.Color(255, 240, 228));
 
-        jPanel56.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel56.setBackground(new java.awt.Color(209, 188, 172));
         jPanel56.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jTextField3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -1795,7 +1785,7 @@ public class SystemView extends javax.swing.JFrame {
         jPanel56.add(jTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(134, 304, 133, -1));
 
         jLabel36.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
-        jLabel36.setForeground(new java.awt.Color(102, 102, 255));
+        jLabel36.setForeground(new java.awt.Color(151, 114, 78));
         jLabel36.setText("REGISTRO DE EMPLEADOS");
         jPanel56.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 20, 616, 65));
 
@@ -1918,8 +1908,8 @@ public class SystemView extends javax.swing.JFrame {
                 .addGap(11, 11, 11)
                 .addComponent(jPanel56, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(86, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Empleados", jPanel6);
@@ -1934,43 +1924,31 @@ public class SystemView extends javax.swing.JFrame {
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 811, Short.MAX_VALUE)
+            .addGap(0, 815, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Reportes", jPanel7);
 
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1100, Short.MAX_VALUE)
-        );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 811, Short.MAX_VALUE)
-        );
+        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 0, -1, 850));
 
-        jTabbedPane1.addTab("Configuración", jPanel8);
-
-        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 0, -1, -1));
-
-        jPanel2.setBackground(new java.awt.Color(153, 153, 255));
+        jPanel2.setBackground(new java.awt.Color(210, 166, 129));
         jPanel2.setForeground(new java.awt.Color(153, 153, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel23.setBackground(new java.awt.Color(102, 102, 255));
+        jPanel23.setBackground(new java.awt.Color(175, 73, 16));
 
-        jLabel20.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
-        jLabel20.setText("Salir");
+        jLabel20.setFont(new java.awt.Font("Comic Sans MS", 1, 24)); // NOI18N
+        jLabel20.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel20.setText("SALIR");
 
         javax.swing.GroupLayout jPanel23Layout = new javax.swing.GroupLayout(jPanel23);
         jPanel23.setLayout(jPanel23Layout);
         jPanel23Layout.setHorizontalGroup(
             jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel23Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(101, Short.MAX_VALUE))
+                .addGap(91, 91, 91)
+                .addComponent(jLabel20)
+                .addContainerGap(103, Short.MAX_VALUE))
         );
         jPanel23Layout.setVerticalGroup(
             jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1979,13 +1957,13 @@ public class SystemView extends javax.swing.JFrame {
                 .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel2.add(jPanel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 730, 270, 70));
+        jPanel2.add(jPanel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 720, 270, 70));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/logo_restaurante.png"))); // NOI18N
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 250, 350));
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 250, 350));
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 270, 810));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 270, 790));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -2302,9 +2280,7 @@ public class SystemView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
-    private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel17;
-    private javax.swing.JPanel jPanel18;
     private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel21;
@@ -2347,7 +2323,6 @@ public class SystemView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel56;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
