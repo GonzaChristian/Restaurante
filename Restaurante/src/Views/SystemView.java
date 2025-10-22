@@ -2097,7 +2097,7 @@ public class SystemView extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/logo_restaurante.png"))); // NOI18N
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 250, 350));
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 250, 350));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 270, 790));
 
