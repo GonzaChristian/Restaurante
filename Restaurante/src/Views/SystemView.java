@@ -279,6 +279,8 @@ public class SystemView extends javax.swing.JFrame {
         jTextField11 = new javax.swing.JTextField();
         jLabel155 = new javax.swing.JLabel();
         jTextField12 = new javax.swing.JTextField();
+        jLabel156 = new javax.swing.JLabel();
+        jTextField13 = new javax.swing.JTextField();
         jScrollPane5 = new javax.swing.JScrollPane();
         jTable6 = new javax.swing.JTable();
         jPanel7 = new javax.swing.JPanel();
@@ -1828,7 +1830,7 @@ public class SystemView extends javax.swing.JFrame {
         jPanel56.add(jRadioButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 265, -1, -1));
 
         jLabel37.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/empleados_restaurante.png"))); // NOI18N
-        jPanel56.add(jLabel37, new org.netbeans.lib.awtextra.AbsoluteConstraints(538, 73, 470, 318));
+        jPanel56.add(jLabel37, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 70, 470, 318));
 
         jLabel38.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel38.setText("Cargo:");
@@ -1847,8 +1849,8 @@ public class SystemView extends javax.swing.JFrame {
         jPanel56.add(jLabel39, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 108, -1, -1));
 
         jLabel41.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel41.setText("Dirección:");
-        jPanel56.add(jLabel41, new org.netbeans.lib.awtextra.AbsoluteConstraints(305, 150, -1, -1));
+        jLabel41.setText("Horario:");
+        jPanel56.add(jLabel41, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 350, -1, -1));
 
         jTextField6.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jTextField6.addActionListener(new java.awt.event.ActionListener() {
@@ -1856,7 +1858,7 @@ public class SystemView extends javax.swing.JFrame {
                 jTextField6ActionPerformed(evt);
             }
         });
-        jPanel56.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(395, 143, 133, -1));
+        jPanel56.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 350, 133, -1));
 
         jLabel42.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel42.setText("Teléfono:");
@@ -1866,7 +1868,7 @@ public class SystemView extends javax.swing.JFrame {
         jPanel56.add(jTextField9, new org.netbeans.lib.awtextra.AbsoluteConstraints(395, 184, 133, -1));
 
         jLabel43.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel43.setText("Uusario:");
+        jLabel43.setText("Usario:");
         jPanel56.add(jLabel43, new org.netbeans.lib.awtextra.AbsoluteConstraints(305, 266, -1, -1));
 
         jTextField10.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -1886,15 +1888,27 @@ public class SystemView extends javax.swing.JFrame {
         jTextField12.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jPanel56.add(jTextField12, new org.netbeans.lib.awtextra.AbsoluteConstraints(395, 304, 133, -1));
 
+        jLabel156.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel156.setText("Dirección:");
+        jPanel56.add(jLabel156, new org.netbeans.lib.awtextra.AbsoluteConstraints(305, 150, -1, -1));
+
+        jTextField13.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jTextField13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField13ActionPerformed(evt);
+            }
+        });
+        jPanel56.add(jTextField13, new org.netbeans.lib.awtextra.AbsoluteConstraints(395, 143, 133, -1));
+
         jTable6.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Nombres", "Apellidos", "DNI", "Sexo", "Fecha de nacimiento"
+                "Nombres", "Apellidos", "DNI", "Sexo", "Fecha de nacimiento", "Cargo", "Dirección", "Teléfono", "Correo", "Usuario", "Contraseña", "Horario"
             }
         ));
         jScrollPane5.setViewportView(jTable6);
@@ -1906,21 +1920,23 @@ public class SystemView extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel56, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane5))
-                .addContainerGap(74, Short.MAX_VALUE))
+                    .addComponent(jScrollPane5)
+                    .addComponent(jPanel56, javax.swing.GroupLayout.DEFAULT_SIZE, 1064, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addGap(11, 11, 11)
                 .addComponent(jPanel56, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE)
-                .addGap(25, 25, 25))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(57, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Empleados", jPanel6);
+
+        jPanel7.setBackground(new java.awt.Color(204, 204, 204));
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -1930,7 +1946,7 @@ public class SystemView extends javax.swing.JFrame {
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 769, Short.MAX_VALUE)
+            .addGap(0, 811, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Reportes", jPanel7);
@@ -1943,7 +1959,7 @@ public class SystemView extends javax.swing.JFrame {
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 769, Short.MAX_VALUE)
+            .addGap(0, 811, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Configuración", jPanel8);
@@ -2196,6 +2212,10 @@ public class SystemView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField6ActionPerformed
 
+    private void jTextField13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField13ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField13ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -2330,6 +2350,7 @@ public class SystemView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel153;
     private javax.swing.JLabel jLabel154;
     private javax.swing.JLabel jLabel155;
+    private javax.swing.JLabel jLabel156;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
@@ -2497,6 +2518,7 @@ public class SystemView extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField11;
     private javax.swing.JTextField jTextField12;
+    private javax.swing.JTextField jTextField13;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
