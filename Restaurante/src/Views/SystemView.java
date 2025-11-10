@@ -4,6 +4,9 @@ import controllers.PedidoController;
 import Views.PanelMesas;
 import controllers.AdministrarPedidosController;
 import controllers.PlatillosController;
+import controllers.EmpleadoController;
+import controllers.ClienteController;
+import controllers.InsumoController;
 
 public class SystemView extends javax.swing.JFrame {
     
@@ -12,6 +15,9 @@ public class SystemView extends javax.swing.JFrame {
     private PedidoController pedidoController;
     private AdministrarPedidosController adminPedidosController;
     private PanelGenerarPedido panelGenerarPedido;
+    private EmpleadoController empleadoController;
+    private ClienteController clienteController;
+    private InsumoController insumoController;
     public SystemView(){
         initComponents(); // Mantener esto primero
     
@@ -63,6 +69,57 @@ public class SystemView extends javax.swing.JFrame {
         platillosController = new PlatillosController();
         platillosController.inicializarComponentes(jTableMenuDia);
         platillosController.setPedidoControllerReferencia(pedidoController);
+        
+        
+        // ========== CONFIGURAR PANEL EMPLEADOS ==========
+    empleadoController = new EmpleadoController();
+    empleadoController.inicializarComponentes(
+        jTableEmpleados,
+        jLabelIDEmpleado,
+        jTextFieldNombreEmpledo,
+        jTextFieldApellidoEmpleado,
+        jTextFieldDNIEmpleado,
+        jRadioButtonMasculinoEmpleado,
+        jRadioButtonFemeninoEmpleado,
+        jTextFieldFechaNacimientoEmpleado,
+        jTextFieldDireccionEmpleado,
+        jTextFieldTelefonoEmpleado,
+        jTextFieldCorreoEmpleado,
+        jTextFieldUsuarioEmpleado,
+        jTextFieldContraseñaEmpleado,
+        jTextFieldCargoEmpleado,
+        jTextFieldHorarioEmpleado
+    );
+    
+    // ========== CONFIGURAR PANEL CLIENTES ==========
+    clienteController = new ClienteController();
+    clienteController.inicializarComponentes(
+        jTableClientes,
+        jLabelIDCliente,
+        jTextFieldNombreCliente,
+        jTextFieldApellidoCliente,
+        jTextFieldDNICliente,
+        jTextFieldDireccionCliente,
+        jTextFieldTelefonoCliente,
+        jTextFieldCorreoCliente
+    );
+    
+    // ========== CONFIGURAR PANEL INVENTARIO ==========
+    insumoController = new InsumoController();
+    insumoController.inicializarComponentes(
+        jTableInsumos,
+        jLabelIDInsumos,
+        jTextFieldCodigoInsumo,
+        jTextFieldNombreInsumo,
+        jTextFieldCategoriaInsumo,
+        jTextFieldStockInsumo,
+        jTextFieldAlmacenInsumo,
+        jTextFieldProveedorInsumo
+    );
+        
+        
+        
+        
         
         
         
@@ -135,6 +192,43 @@ public class SystemView extends javax.swing.JFrame {
         // Botones "Quitar" de cada panel de platillo
         jButtonQuitarLomoSaltadoDeMenu.addActionListener(evt -> {
             platillosController.quitarPlatilloDeMenu(1, pnlPlatillos);
+        });
+        jButtonNuevoEmpleado.addActionListener(evt -> {
+        empleadoController.agregarEmpleado(pnlEmpleados);
+        });
+
+        jButtonModificarEmpleado.addActionListener(evt -> {
+            empleadoController.modificarEmpleado(pnlEmpleados);
+        });
+
+        jButtonEliminarEmpleado.addActionListener(evt -> {
+            empleadoController.eliminarEmpleado(pnlEmpleados);
+        });
+
+        // ========== LISTENERS PANEL CLIENTES ==========
+        jButtonNuevoCliente.addActionListener(evt -> {
+            clienteController.agregarCliente(pnlClientes);
+        });
+
+        jButtonModificarCliente.addActionListener(evt -> {
+            clienteController.modificarCliente(pnlClientes);
+        });
+
+        jButtonEliminarCliente.addActionListener(evt -> {
+            clienteController.eliminarCliente(pnlClientes);
+        });
+
+        // ========== LISTENERS PANEL INVENTARIO ==========
+        jButtonNuevoInsumo.addActionListener(evt -> {
+            insumoController.agregarInsumo(pnlInventario);
+        });
+
+        jButtonModificarInsumo.addActionListener(evt -> {
+            insumoController.modificarInsumo(pnlInventario);
+        });
+
+        jButtonEliminarInsumo.addActionListener(evt -> {
+            insumoController.eliminarInsumo(pnlInventario);
         });
     }
 
