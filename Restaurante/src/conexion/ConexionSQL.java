@@ -6,10 +6,9 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 public class ConexionSQL {
-    // Datos de conexión (ajusta según tu configuración)
     private static final String URL = "jdbc:sqlserver://DESKTOP-2U3S037\\SQLEXPRESS:1435;databaseName=RestauranteMery;encrypt=true;trustServerCertificate=true;";
-    private static final String USER = "gonza";       // Tu usuario SQL
-    private static final String PASSWORD = "123456"; // Tu contraseña SQL
+    private static final String USER = "gonza";      
+    private static final String PASSWORD = "123456"; 
 
     public static Connection conectar() {
         Connection con = null;
