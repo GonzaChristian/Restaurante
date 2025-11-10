@@ -7,6 +7,7 @@ import controllers.PlatillosController;
 import controllers.EmpleadoController;
 import controllers.ClienteController;
 import controllers.InsumoController;
+import controllers.ReportesController;
 
 public class SystemView extends javax.swing.JFrame {
     
@@ -18,6 +19,7 @@ public class SystemView extends javax.swing.JFrame {
     private EmpleadoController empleadoController;
     private ClienteController clienteController;
     private InsumoController insumoController;
+    private ReportesController reportesController;
     public SystemView(){
         initComponents(); // Mantener esto primero
     
@@ -117,7 +119,9 @@ public class SystemView extends javax.swing.JFrame {
         jTextFieldProveedorInsumo
     );
         
-        
+    // ========== CONFIGURAR PANEL REPORTES ==========
+    reportesController = new ReportesController();
+    reportesController.inicializarComponentes(jTable7);    
         
         
         
@@ -229,6 +233,39 @@ public class SystemView extends javax.swing.JFrame {
 
         jButtonEliminarInsumo.addActionListener(evt -> {
             insumoController.eliminarInsumo(pnlInventario);
+        });
+        
+        // Botón "PLATILLOS" - Mostrar platillos más vendidos
+        // Según tu diseño, este botón está dentro de jPanelButtonPlatillos
+        jPanelButtonPlatillos.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                reportesController.mostrarReportePlatillos();
+            }
+        });
+
+        // Botón "INVENTARIO" - Mostrar estado del inventario
+        jPanelButtonInventario.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                reportesController.mostrarReporteInventario();
+            }
+        });
+
+        // Botón "CAJA" - Mostrar reporte financiero
+        jPanelButtonCaja.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                reportesController.mostrarReporteCaja();
+            }
+        });
+
+        // Botón "IMPRIMIR"
+        jPanel15.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                reportesController.imprimirReporte(pnlReportes);
+            }
         });
     }
 

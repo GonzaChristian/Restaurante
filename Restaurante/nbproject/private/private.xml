@@ -3,27 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/chris/Desktop/IESTP%20VILLA%20MARIA/IV%20SEMESTRE/TALLER%20DE%20PROGRAMACIÓN%20CONCURRENTE/Restaurante/Restaurante/src/Views/SystemView.java</file>
-            <file>file:/C:/Users/chris/Desktop/IESTP%20VILLA%20MARIA/IV%20SEMESTRE/TALLER%20DE%20PROGRAMACIÓN%20CONCURRENTE/Restaurante/Restaurante/src/conexion/ConexionSQL.java</file>
-            <file>file:/C:/Users/chris/Desktop/IESTP%20VILLA%20MARIA/IV%20SEMESTRE/TALLER%20DE%20PROGRAMACIÓN%20CONCURRENTE/Restaurante/Restaurante/src/main/PruebaConexion.java</file>
-            <file>file:/C:/Users/chris/Desktop/IESTP%20VILLA%20MARIA/IV%20SEMESTRE/TALLER%20DE%20PROGRAMACIÓN%20CONCURRENTE/Restaurante/Restaurante/src/Views/PanelMesas.java</file>
-            <file>file:/C:/Users/chris/Desktop/IESTP%20VILLA%20MARIA/IV%20SEMESTRE/TALLER%20DE%20PROGRAMACIÓN%20CONCURRENTE/Restaurante/Restaurante/src/Views/PanelGenerarPedido.java</file>
-            <file>file:/C:/Users/chris/Desktop/IESTP%20VILLA%20MARIA/IV%20SEMESTRE/TALLER%20DE%20PROGRAMACIÓN%20CONCURRENTE/Restaurante/Restaurante/src/models/Mesa.java</file>
-            <file>file:/C:/Users/chris/Desktop/IESTP%20VILLA%20MARIA/IV%20SEMESTRE/TALLER%20DE%20PROGRAMACIÓN%20CONCURRENTE/Restaurante/Restaurante/src/models/Platillo.java</file>
-            <file>file:/C:/Users/chris/Desktop/IESTP%20VILLA%20MARIA/IV%20SEMESTRE/TALLER%20DE%20PROGRAMACIÓN%20CONCURRENTE/Restaurante/Restaurante/src/models/Pedido.java</file>
-            <file>file:/C:/Users/chris/Desktop/IESTP%20VILLA%20MARIA/IV%20SEMESTRE/TALLER%20DE%20PROGRAMACIÓN%20CONCURRENTE/Restaurante/Restaurante/src/models/DetallePedido.java</file>
-            <file>file:/C:/Users/chris/Desktop/IESTP%20VILLA%20MARIA/IV%20SEMESTRE/TALLER%20DE%20PROGRAMACIÓN%20CONCURRENTE/Restaurante/Restaurante/src/dao/MesaDAO.java</file>
-            <file>file:/C:/Users/chris/Desktop/IESTP%20VILLA%20MARIA/IV%20SEMESTRE/TALLER%20DE%20PROGRAMACIÓN%20CONCURRENTE/Restaurante/Restaurante/src/dao/PlatilloDAO.java</file>
-            <file>file:/C:/Users/chris/Desktop/IESTP%20VILLA%20MARIA/IV%20SEMESTRE/TALLER%20DE%20PROGRAMACIÓN%20CONCURRENTE/Restaurante/Restaurante/src/dao/PedidoDAO.java</file>
-            <file>file:/C:/Users/chris/Desktop/IESTP%20VILLA%20MARIA/IV%20SEMESTRE/TALLER%20DE%20PROGRAMACIÓN%20CONCURRENTE/Restaurante/Restaurante/src/controllers/PedidoController.java</file>
-            <file>file:/C:/Users/chris/Desktop/IESTP%20VILLA%20MARIA/IV%20SEMESTRE/TALLER%20DE%20PROGRAMACIÓN%20CONCURRENTE/Restaurante/Restaurante/src/controllers/AdministrarPedidosController.java</file>
-            <file>file:/C:/Users/chris/Desktop/IESTP%20VILLA%20MARIA/IV%20SEMESTRE/TALLER%20DE%20PROGRAMACIÓN%20CONCURRENTE/Restaurante/Restaurante/src/controllers/PlatillosController.java</file>
-            <file>file:/C:/Users/chris/Desktop/IESTP%20VILLA%20MARIA/IV%20SEMESTRE/TALLER%20DE%20PROGRAMACIÓN%20CONCURRENTE/Restaurante/Restaurante/src/models/Empleado.java</file>
-            <file>file:/C:/Users/chris/Desktop/IESTP%20VILLA%20MARIA/IV%20SEMESTRE/TALLER%20DE%20PROGRAMACIÓN%20CONCURRENTE/Restaurante/Restaurante/src/models/Cliente.java</file>
-            <file>file:/C:/Users/chris/Desktop/IESTP%20VILLA%20MARIA/IV%20SEMESTRE/TALLER%20DE%20PROGRAMACIÓN%20CONCURRENTE/Restaurante/Restaurante/src/models/Insumo.java</file>
-            <file>file:/C:/Users/chris/Desktop/IESTP%20VILLA%20MARIA/IV%20SEMESTRE/TALLER%20DE%20PROGRAMACIÓN%20CONCURRENTE/Restaurante/Restaurante/src/dao/EmpleadoDAO.java</file>
-            <file>file:/C:/Users/chris/Desktop/IESTP%20VILLA%20MARIA/IV%20SEMESTRE/TALLER%20DE%20PROGRAMACIÓN%20CONCURRENTE/Restaurante/Restaurante/src/dao/ClienteDAO.java</file>
-            <file>file:/C:/Users/chris/Desktop/IESTP%20VILLA%20MARIA/IV%20SEMESTRE/TALLER%20DE%20PROGRAMACIÓN%20CONCURRENTE/Restaurante/Restaurante/src/dao/InsumoDAO.java</file>
+            <file>file:/C:/Users/IESTP%20VM/Documents/NetBeansProjects/ProyectoRestaurante/Restaurante/src/Views/SystemView.java</file>
         </group>
     </open-files>
 </project-private>
