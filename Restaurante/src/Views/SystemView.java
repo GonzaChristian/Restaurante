@@ -7,6 +7,7 @@ import controllers.EmpleadoController;
 import controllers.ClienteController;
 import controllers.InsumoController;
 import controllers.PlatillosController;
+import controllers.ReportesController;
 
 public class SystemView extends javax.swing.JFrame {
     
@@ -18,7 +19,7 @@ public class SystemView extends javax.swing.JFrame {
     private EmpleadoController empleadoController;
     private ClienteController clienteController;
     private InsumoController insumoController;
-    
+    private ReportesController reportesController;
     public SystemView(){
         initComponents(); // Mantener esto primero
     
@@ -122,7 +123,9 @@ public class SystemView extends javax.swing.JFrame {
         jTextFieldProveedorInsumo
     );
         
-        
+    // ========== CONFIGURAR PANEL REPORTES ==========
+    reportesController = new ReportesController();
+    reportesController.inicializarComponentes(jTable7);    
         
         
         
@@ -237,6 +240,39 @@ public class SystemView extends javax.swing.JFrame {
 
         jButtonEliminarInsumo.addActionListener(evt -> {
             insumoController.eliminarInsumo(pnlInventario);
+        });
+        
+        // Botón "PLATILLOS" - Mostrar platillos más vendidos
+        // Según tu diseño, este botón está dentro de jPanelButtonPlatillos
+        jPanelButtonPlatillos.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                reportesController.mostrarReportePlatillos();
+            }
+        });
+
+        // Botón "INVENTARIO" - Mostrar estado del inventario
+        jPanelButtonInventario.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                reportesController.mostrarReporteInventario();
+            }
+        });
+
+        // Botón "CAJA" - Mostrar reporte financiero
+        jPanelButtonCaja.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                reportesController.mostrarReporteCaja();
+            }
+        });
+
+        // Botón "IMPRIMIR"
+        jPanel15.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                reportesController.imprimirReporte(pnlReportes);
+            }
         });
     }
 
@@ -1484,7 +1520,7 @@ public class SystemView extends javax.swing.JFrame {
                 .addGroup(pnlEmpleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane5)
                     .addComponent(jPanel56, javax.swing.GroupLayout.DEFAULT_SIZE, 1064, Short.MAX_VALUE))
-                .addContainerGap(128, Short.MAX_VALUE))
+                .addContainerGap(8, Short.MAX_VALUE))
         );
         pnlEmpleadosLayout.setVerticalGroup(
             pnlEmpleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1863,7 +1899,7 @@ public class SystemView extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Reportes", pnlReportes);
 
-        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 0, -1, 790));
+        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 0, 1090, 790));
 
         jPanel2.setBackground(new java.awt.Color(210, 166, 129));
         jPanel2.setForeground(new java.awt.Color(153, 153, 255));
