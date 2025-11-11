@@ -3,10 +3,10 @@ package Views;
 import controllers.PedidoController;
 import Views.PanelMesas;
 import controllers.AdministrarPedidosController;
-import controllers.PlatillosController;
 import controllers.EmpleadoController;
 import controllers.ClienteController;
 import controllers.InsumoController;
+import controllers.PlatillosController;
 
 public class SystemView extends javax.swing.JFrame {
     
@@ -18,6 +18,7 @@ public class SystemView extends javax.swing.JFrame {
     private EmpleadoController empleadoController;
     private ClienteController clienteController;
     private InsumoController insumoController;
+    
     public SystemView(){
         initComponents(); // Mantener esto primero
     
@@ -67,7 +68,11 @@ public class SystemView extends javax.swing.JFrame {
         
         // ========== CONFIGURAR PANEL PLATILLOS ==========
         platillosController = new PlatillosController();
-        platillosController.inicializarComponentes(jTableMenuDia);
+        platillosController.inicializarComponentes(
+            jTableMenuDia,
+            jPanelContenedorPlatillos,
+            jScrollPanePlatillos
+        );
         platillosController.setPedidoControllerReferencia(pedidoController);
         
         
@@ -170,29 +175,32 @@ public class SystemView extends javax.swing.JFrame {
         jButton8.addActionListener(evt -> {  // Botón "Marcar Completado"
             adminPedidosController.marcarCompletado(pnlAdministrarPedido);
         });
+        
         jButtonNuevoPlatillo.addActionListener(evt -> {
-        platillosController.nuevoPlatillo(pnlPlatillos);
+            platillosController.nuevoPlatillo(SystemView.this);
         });
-    
+
         jButtonModificarPlatillo.addActionListener(evt -> {
-            platillosController.modificarPlatillo(pnlPlatillos);
+            platillosController.modificarPlatillo(SystemView.this);
         });
 
         jButtonEliminarPlatillo.addActionListener(evt -> {
             platillosController.eliminarPlatillo(pnlPlatillos);
         });
 
-        // Botones "Agregar" de cada panel de platillo (ejemplo con Lomo Saltado)
-        jButtonAgregarLomoSaltadoAMenu.addActionListener(evt -> {
-            // Aquí debes poner el ID real del platillo
-            // Por ahora usaremos ID=1 como ejemplo
-            platillosController.agregarPlatilloAMenu(1, pnlPlatillos);
+        // ========== LISTENERS PANEL PLATILLOS ==========
+        jButtonNuevoPlatillo.addActionListener(evt -> {
+            platillosController.nuevoPlatillo(SystemView.this);  // ← Cambiar a SystemView.this
         });
 
-        // Botones "Quitar" de cada panel de platillo
-        jButtonQuitarLomoSaltadoDeMenu.addActionListener(evt -> {
-            platillosController.quitarPlatilloDeMenu(1, pnlPlatillos);
+        jButtonModificarPlatillo.addActionListener(evt -> {
+            platillosController.modificarPlatillo(SystemView.this);  // ← Cambiar a SystemView.this
         });
+
+        jButtonEliminarPlatillo.addActionListener(evt -> {
+            platillosController.eliminarPlatillo(pnlPlatillos);  // ← Este está bien
+        });
+
         jButtonNuevoEmpleado.addActionListener(evt -> {
         empleadoController.agregarEmpleado(pnlEmpleados);
         });
@@ -265,6 +273,9 @@ public class SystemView extends javax.swing.JFrame {
         btnImprimirVoucher = new javax.swing.JButton();
         btnPedidoEnProceso = new javax.swing.JButton();
         btnPedidoCompletado = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
         pnlAdministrarPedido = new javax.swing.JPanel();
         jPanel11 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -282,8 +293,8 @@ public class SystemView extends javax.swing.JFrame {
         jButtonEliminarPlatillo = new javax.swing.JButton();
         jPanel26 = new javax.swing.JPanel();
         jTable5 = new javax.swing.JTable();
-        jScrollPane6 = new javax.swing.JScrollPane();
-        jPanel24 = new javax.swing.JPanel();
+        jScrollPanePlatillos = new javax.swing.JScrollPane();
+        jPanelContenedorPlatillos = new javax.swing.JPanel();
         jPanel25 = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
         jButton27 = new javax.swing.JButton();
@@ -295,15 +306,15 @@ public class SystemView extends javax.swing.JFrame {
         jLabel117 = new javax.swing.JLabel();
         jButton28 = new javax.swing.JButton();
         jPanelEstofadoDePollo = new javax.swing.JPanel();
-        jLabel21 = new javax.swing.JLabel();
-        jButton21 = new javax.swing.JButton();
+        jLabelImagenPlatillo = new javax.swing.JLabel();
+        jButtonAgregarPlatilloAMenu = new javax.swing.JButton();
         jLabel33 = new javax.swing.JLabel();
         jLabel95 = new javax.swing.JLabel();
         jLabel96 = new javax.swing.JLabel();
-        jLabel97 = new javax.swing.JLabel();
-        jLabel98 = new javax.swing.JLabel();
-        jLabel99 = new javax.swing.JLabel();
-        jButton22 = new javax.swing.JButton();
+        lblNombrePlatillo = new javax.swing.JLabel();
+        lblCategoriaPlatillo = new javax.swing.JLabel();
+        lblPrecioPlatillo = new javax.swing.JLabel();
+        jButtonQuitarPlatilloDeMenu = new javax.swing.JButton();
         jPanelLomoSaltado = new javax.swing.JPanel();
         jLabel30 = new javax.swing.JLabel();
         jLabel32 = new javax.swing.JLabel();
@@ -570,20 +581,20 @@ public class SystemView extends javax.swing.JFrame {
         pnlGenerarPedido.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, 500, 320));
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel9.setText("Total:");
-        pnlGenerarPedido.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 590, -1, -1));
+        jLabel9.setText("0");
+        pnlGenerarPedido.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 590, -1, -1));
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel11.setText("Pedido actual:");
         pnlGenerarPedido.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, -1, -1));
 
         lblSubtotal.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblSubtotal.setText("Subtotal:");
-        pnlGenerarPedido.add(lblSubtotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 490, -1, -1));
+        lblSubtotal.setText("0");
+        pnlGenerarPedido.add(lblSubtotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 490, -1, -1));
 
         lblIGV.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblIGV.setText("IGV:");
-        pnlGenerarPedido.add(lblIGV, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 540, -1, -1));
+        lblIGV.setText("0");
+        pnlGenerarPedido.add(lblIGV, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 540, -1, -1));
 
         btnImprimirVoucher.setText("🖨 Imprimir");
         pnlGenerarPedido.add(btnImprimirVoucher, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 650, 150, 50));
@@ -598,6 +609,18 @@ public class SystemView extends javax.swing.JFrame {
 
         btnPedidoCompletado.setText("Pedido Completado");
         pnlGenerarPedido.add(btnPedidoCompletado, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 650, 150, 50));
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel7.setText("Total:");
+        pnlGenerarPedido.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 590, -1, -1));
+
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel12.setText("Subtotal:");
+        pnlGenerarPedido.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 490, -1, -1));
+
+        jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel13.setText("IGV:");
+        pnlGenerarPedido.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 540, -1, -1));
 
         jTabbedPane1.addTab("Generar pedido", pnlGenerarPedido);
 
@@ -694,11 +717,11 @@ public class SystemView extends javax.swing.JFrame {
         ));
         jPanel17.add(jTable5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
-        jPanel24.setBackground(new java.awt.Color(203, 166, 131));
-        jPanel24.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel24.setMinimumSize(new java.awt.Dimension(440, 2500));
-        jPanel24.setPreferredSize(new java.awt.Dimension(440, 2000));
-        jPanel24.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanelContenedorPlatillos.setBackground(new java.awt.Color(203, 166, 131));
+        jPanelContenedorPlatillos.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanelContenedorPlatillos.setMinimumSize(new java.awt.Dimension(440, 2500));
+        jPanelContenedorPlatillos.setPreferredSize(new java.awt.Dimension(440, 2000));
+        jPanelContenedorPlatillos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel25.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel25.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -739,17 +762,17 @@ public class SystemView extends javax.swing.JFrame {
         });
         jPanel25.add(jButton28, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 110, -1, -1));
 
-        jPanel24.add(jPanel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 1820, 420, 150));
+        jPanelContenedorPlatillos.add(jPanel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 1820, 420, 150));
 
         jPanelEstofadoDePollo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanelEstofadoDePollo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/platillos/platillo_estofadodepollo.jpg"))); // NOI18N
-        jLabel21.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanelEstofadoDePollo.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 160, 108));
+        jLabelImagenPlatillo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/platillos/platillo_estofadodepollo.jpg"))); // NOI18N
+        jLabelImagenPlatillo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanelEstofadoDePollo.add(jLabelImagenPlatillo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 160, 108));
 
-        jButton21.setText("Agregar");
-        jPanelEstofadoDePollo.add(jButton21, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 110, -1, -1));
+        jButtonAgregarPlatilloAMenu.setText("Agregar");
+        jPanelEstofadoDePollo.add(jButtonAgregarPlatilloAMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 110, -1, -1));
 
         jLabel33.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel33.setText("Precio:");
@@ -763,24 +786,24 @@ public class SystemView extends javax.swing.JFrame {
         jLabel96.setText("Nombre:");
         jPanelEstofadoDePollo.add(jLabel96, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 20, 60, 20));
 
-        jLabel97.setText("Estofado de Pollo");
-        jPanelEstofadoDePollo.add(jLabel97, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 20, 100, 20));
+        lblNombrePlatillo.setText("Estofado de Pollo");
+        jPanelEstofadoDePollo.add(lblNombrePlatillo, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 20, 100, 20));
 
-        jLabel98.setText("Plato principal");
-        jPanelEstofadoDePollo.add(jLabel98, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 50, 100, 20));
+        lblCategoriaPlatillo.setText("Plato principal");
+        jPanelEstofadoDePollo.add(lblCategoriaPlatillo, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 50, 100, 20));
 
-        jLabel99.setText("S/.12.00");
-        jPanelEstofadoDePollo.add(jLabel99, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 80, 60, 20));
+        lblPrecioPlatillo.setText("S/.12.00");
+        jPanelEstofadoDePollo.add(lblPrecioPlatillo, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 80, 60, 20));
 
-        jButton22.setText("Quitar");
-        jButton22.addActionListener(new java.awt.event.ActionListener() {
+        jButtonQuitarPlatilloDeMenu.setText("Quitar");
+        jButtonQuitarPlatilloDeMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton22ActionPerformed(evt);
+                jButtonQuitarPlatilloDeMenuActionPerformed(evt);
             }
         });
-        jPanelEstofadoDePollo.add(jButton22, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 110, -1, -1));
+        jPanelEstofadoDePollo.add(jButtonQuitarPlatilloDeMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 110, -1, -1));
 
-        jPanel24.add(jPanelEstofadoDePollo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 420, 150));
+        jPanelContenedorPlatillos.add(jPanelEstofadoDePollo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 420, 150));
 
         jPanelLomoSaltado.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -859,7 +882,7 @@ public class SystemView extends javax.swing.JFrame {
                         .addComponent(jButtonQuitarLomoSaltadoDeMenu))))
         );
 
-        jPanel24.add(jPanelLomoSaltado, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 420, 150));
+        jPanelContenedorPlatillos.add(jPanelLomoSaltado, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 420, 150));
 
         jPanel29.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel29.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -900,7 +923,7 @@ public class SystemView extends javax.swing.JFrame {
         });
         jPanel29.add(jButton24, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 110, -1, -1));
 
-        jPanel24.add(jPanel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 380, 420, 150));
+        jPanelContenedorPlatillos.add(jPanel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 380, 420, 150));
 
         jPanel30.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel30.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -941,7 +964,7 @@ public class SystemView extends javax.swing.JFrame {
         });
         jPanel30.add(jButton26, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 110, -1, -1));
 
-        jPanel24.add(jPanel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 560, 420, 150));
+        jPanelContenedorPlatillos.add(jPanel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 560, 420, 150));
 
         jPanel31.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel31.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -968,7 +991,7 @@ public class SystemView extends javax.swing.JFrame {
         jLabel49.setText("S/.12.00");
         jPanel31.add(jLabel49, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 70, 60, 20));
 
-        jPanel24.add(jPanel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 560, 420, 150));
+        jPanelContenedorPlatillos.add(jPanel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 560, 420, 150));
 
         jPanel50.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel50.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1009,7 +1032,7 @@ public class SystemView extends javax.swing.JFrame {
         });
         jPanel50.add(jButton30, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 110, -1, -1));
 
-        jPanel24.add(jPanel50, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 740, 420, 150));
+        jPanelContenedorPlatillos.add(jPanel50, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 740, 420, 150));
 
         jPanel51.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel51.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1050,7 +1073,7 @@ public class SystemView extends javax.swing.JFrame {
         });
         jPanel51.add(jButton32, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 110, -1, -1));
 
-        jPanel24.add(jPanel51, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 920, 420, 150));
+        jPanelContenedorPlatillos.add(jPanel51, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 920, 420, 150));
 
         jPanel52.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel52.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1091,7 +1114,7 @@ public class SystemView extends javax.swing.JFrame {
         });
         jPanel52.add(jButton34, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 110, -1, -1));
 
-        jPanel24.add(jPanel52, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 1100, 420, 150));
+        jPanelContenedorPlatillos.add(jPanel52, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 1100, 420, 150));
 
         jPanel53.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel53.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1132,7 +1155,7 @@ public class SystemView extends javax.swing.JFrame {
         });
         jPanel53.add(jButton36, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 110, -1, -1));
 
-        jPanel24.add(jPanel53, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 1280, 420, 150));
+        jPanelContenedorPlatillos.add(jPanel53, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 1280, 420, 150));
 
         jPanel54.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel54.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1173,7 +1196,7 @@ public class SystemView extends javax.swing.JFrame {
         });
         jPanel54.add(jButton38, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 110, -1, -1));
 
-        jPanel24.add(jPanel54, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 1460, 420, 150));
+        jPanelContenedorPlatillos.add(jPanel54, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 1460, 420, 150));
 
         jPanel55.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel55.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1214,11 +1237,11 @@ public class SystemView extends javax.swing.JFrame {
         });
         jPanel55.add(jButton40, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 110, -1, -1));
 
-        jPanel24.add(jPanel55, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 1640, 420, 150));
+        jPanelContenedorPlatillos.add(jPanel55, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 1640, 420, 150));
 
-        jScrollPane6.setViewportView(jPanel24);
+        jScrollPanePlatillos.setViewportView(jPanelContenedorPlatillos);
 
-        jPanel17.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 200, 470, 510));
+        jPanel17.add(jScrollPanePlatillos, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 200, 470, 510));
 
         jTableMenuDia.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jTableMenuDia.setModel(new javax.swing.table.DefaultTableModel(
@@ -1470,7 +1493,7 @@ public class SystemView extends javax.swing.JFrame {
                 .addComponent(jPanel56, javax.swing.GroupLayout.PREFERRED_SIZE, 436, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Empleados", pnlEmpleados);
@@ -1975,9 +1998,9 @@ public class SystemView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonQuitarLomoSaltadoDeMenuActionPerformed
 
-    private void jButton22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton22ActionPerformed
+    private void jButtonQuitarPlatilloDeMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonQuitarPlatilloDeMenuActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton22ActionPerformed
+    }//GEN-LAST:event_jButtonQuitarPlatilloDeMenuActionPerformed
 
     private void jButton28ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton28ActionPerformed
         // TODO add your handling code here:
@@ -2040,8 +2063,6 @@ public class SystemView extends javax.swing.JFrame {
     private javax.swing.JButton btnPedidoEnProceso;
     public javax.swing.JComboBox<String> cmbMesas;
     private javax.swing.JButton jButton19;
-    private javax.swing.JButton jButton21;
-    private javax.swing.JButton jButton22;
     private javax.swing.JButton jButton23;
     private javax.swing.JButton jButton24;
     private javax.swing.JButton jButton25;
@@ -2064,6 +2085,7 @@ public class SystemView extends javax.swing.JFrame {
     private javax.swing.JButton jButtonActualizar;
     private javax.swing.JButton jButtonAgregar;
     private javax.swing.JButton jButtonAgregarLomoSaltadoAMenu;
+    private javax.swing.JButton jButtonAgregarPlatilloAMenu;
     private javax.swing.JButton jButtonBuscar;
     private javax.swing.JButton jButtonEliminarCliente;
     private javax.swing.JButton jButtonEliminarEmpleado;
@@ -2078,6 +2100,7 @@ public class SystemView extends javax.swing.JFrame {
     private javax.swing.JButton jButtonNuevoInsumo;
     private javax.swing.JButton jButtonNuevoPlatillo;
     private javax.swing.JButton jButtonQuitarLomoSaltadoDeMenu;
+    private javax.swing.JButton jButtonQuitarPlatilloDeMenu;
     private javax.swing.JButton jButtonVerDetalle;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -2102,6 +2125,7 @@ public class SystemView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel117;
     private javax.swing.JLabel jLabel118;
     private javax.swing.JLabel jLabel119;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel120;
     private javax.swing.JLabel jLabel121;
     private javax.swing.JLabel jLabel122;
@@ -2112,6 +2136,7 @@ public class SystemView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel127;
     private javax.swing.JLabel jLabel128;
     private javax.swing.JLabel jLabel129;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel130;
     private javax.swing.JLabel jLabel131;
     private javax.swing.JLabel jLabel132;
@@ -2163,7 +2188,6 @@ public class SystemView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
@@ -2194,6 +2218,7 @@ public class SystemView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabel90;
@@ -2201,13 +2226,11 @@ public class SystemView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel94;
     private javax.swing.JLabel jLabel95;
     private javax.swing.JLabel jLabel96;
-    private javax.swing.JLabel jLabel97;
-    private javax.swing.JLabel jLabel98;
-    private javax.swing.JLabel jLabel99;
     private javax.swing.JLabel jLabelCategoria;
     private javax.swing.JLabel jLabelIDCliente;
     private javax.swing.JLabel jLabelIDEmpleado;
     private javax.swing.JLabel jLabelIDInsumos;
+    private javax.swing.JLabel jLabelImagenPlatillo;
     private javax.swing.JLabel jLabelNombre;
     private javax.swing.JLabel jLabelPrecio;
     private javax.swing.JPanel jPanel1;
@@ -2217,7 +2240,6 @@ public class SystemView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel17;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel23;
-    private javax.swing.JPanel jPanel24;
     private javax.swing.JPanel jPanel25;
     private javax.swing.JPanel jPanel26;
     private javax.swing.JPanel jPanel29;
@@ -2235,6 +2257,7 @@ public class SystemView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelButtonCaja;
     private javax.swing.JPanel jPanelButtonInventario;
     private javax.swing.JPanel jPanelButtonPlatillos;
+    private javax.swing.JPanel jPanelContenedorPlatillos;
     private javax.swing.JPanel jPanelEstofadoDePollo;
     private javax.swing.JPanel jPanelLomoSaltado;
     private javax.swing.JRadioButton jRadioButtonFemeninoEmpleado;
@@ -2244,10 +2267,10 @@ public class SystemView extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
+    private javax.swing.JScrollPane jScrollPanePlatillos;
     public javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable5;
     private javax.swing.JTable jTable7;
@@ -2283,7 +2306,10 @@ public class SystemView extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldTelefonoCliente;
     private javax.swing.JTextField jTextFieldTelefonoEmpleado;
     private javax.swing.JTextField jTextFieldUsuarioEmpleado;
+    private javax.swing.JLabel lblCategoriaPlatillo;
     private javax.swing.JLabel lblIGV;
+    private javax.swing.JLabel lblNombrePlatillo;
+    private javax.swing.JLabel lblPrecioPlatillo;
     private javax.swing.JLabel lblSubtotal;
     private javax.swing.JPanel pnlAdministrarPedido;
     private javax.swing.JPanel pnlClientes;
