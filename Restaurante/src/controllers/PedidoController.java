@@ -125,6 +125,20 @@ public class PedidoController {
     }
     
     /**
+     * Actualizar menú completo (llamado desde PlatillosController)
+     */
+    public void actualizarMenuCompleto(List<Platillo> platillosActualizados) {
+        modeloMenuDelDia.setRowCount(0);
+        
+        for (Platillo p : platillosActualizados) {
+            modeloMenuDelDia.addRow(new Object[]{
+                p.getNombre(),
+                String.format("S/. %.2f", p.getPrecio())
+            });
+        }
+    }
+    
+    /**
      * Cambiar de mesa y cargar su pedido si existe
      */
     public void cambiarMesa() {

@@ -103,6 +103,7 @@ public class PlatillosController {
         pnlContenedorPlatillos.removeAll();
         
         List<Platillo> platillos = platilloDAO.obtenerTodos();
+        List<Integer> idsEnMenu = menuDelDiaDAO.obtenerPlatillosEnMenu(); // Cargar desde BD
         
         int yPosition = 20;
         
@@ -127,15 +128,14 @@ public class PlatillosController {
                 }
             });
             
-            // Verificar si ya está en el menú
-            boolean estaEnMenu = platillosEnMenu.stream()
-                .anyMatch(pl -> pl.getIdPlatillo() == p.getIdPlatillo());
+            // Verificar si está en el menú del día (desde BD)
+            boolean estaEnMenu = idsEnMenu.contains(p.getIdPlatillo());
             panelPlatillo.setEstaEnMenu(estaEnMenu);
             
             pnlContenedorPlatillos.add(panelPlatillo);
             panelesPlatillos.add(panelPlatillo);
             
-            yPosition += 170; // 150 de altura + 20 de separación
+            yPosition += 170;
         }
         
         // Ajustar tamaño del panel contenedor
@@ -160,21 +160,27 @@ public class PlatillosController {
     }
     
     /**
-     * Cargar platillos en el menú del día (inicialmente vacío)
+     * Cargar platillos en el menú del día desde BD
      */
     public void cargarPlatillosEnMenu() {
         modeloMenuDia.setRowCount(0);
-        platillosEnMenu.clear(); // Iniciar vacío
+        platillosEnMenu.clear();
         
-        // Si quieres cargar todos al inicio, descomenta estas líneas:
-        // platillosEnMenu = platilloDAO.obtenerTodos();
-        // for (Platillo p : platillosEnMenu) {
-        //     modeloMenuDia.addRow(new Object[]{
-        //         p.getNombre(),
-        //         p.getNombreCategoria(),
-        //         String.format("S/. %.2f", p.getPrecio())
-        //     });
-        // }
+        // Obtener IDs de platillos en menú desde BD
+        List<Integer> idsEnMenu = menuDelDiaDAO.obtenerPlatillosEnMenu();
+        
+        // Cargar platillos completos
+        for (Integer id : idsEnMenu) {
+            Platillo p = platilloDAO.obtenerPorId(id);
+            if (p != null) {
+                platillosEnMenu.add(p);
+                modeloMenuDia.addRow(new Object[]{
+                    p.getNombre(),
+                    p.getNombreCategoria(),
+                    String.format("S/. %.2f", p.getPrecio())
+                });
+            }
+        }
         
         actualizarMenuEnPedidos();
     }
@@ -188,6 +194,12 @@ public class PlatillosController {
             .anyMatch(p -> p.getIdPlatillo() == platillo.getIdPlatillo());
         
         if (yaEsta) {
+            return;
+        }
+        
+        // Agregar a BD
+        if (!menuDelDiaDAO.agregar(platillo.getIdPlatillo())) {
+            JOptionPane.showMessageDialog(null, "Error al agregar al menú", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
         
@@ -210,6 +222,12 @@ public class PlatillosController {
      * Quitar platillo del menú del día
      */
     private void quitarPlatilloDeMenu(Platillo platillo, JButton btnAgregar, JButton btnQuitar) {
+        // Quitar de BD
+        if (!menuDelDiaDAO.quitar(platillo.getIdPlatillo())) {
+            JOptionPane.showMessageDialog(null, "Error al quitar del menú", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
         // Buscar y eliminar
         for (int i = 0; i < platillosEnMenu.size(); i++) {
             if (platillosEnMenu.get(i).getIdPlatillo() == platillo.getIdPlatillo()) {
@@ -232,11 +250,25 @@ public class PlatillosController {
     private void actualizarMenuEnPedidos() {
         if (pedidoControllerRef != null) {
             try {
+                // Obtener IDs actuales del menú desde BD
+                List<Integer> idsEnMenu = menuDelDiaDAO.obtenerPlatillosEnMenu();
+                
+                // Obtener platillos completos
+                List<Platillo> platillosActualizados = new ArrayList<>();
+                for (Integer id : idsEnMenu) {
+                    Platillo p = platilloDAO.obtenerPorId(id);
+                    if (p != null) {
+                        platillosActualizados.add(p);
+                    }
+                }
+                
+                // Actualizar en PedidoController
                 pedidoControllerRef.getClass()
-                    .getMethod("cargarPlatillosEnMenu")
-                    .invoke(pedidoControllerRef);
+                    .getMethod("actualizarMenuCompleto", List.class)
+                    .invoke(pedidoControllerRef, platillosActualizados);
             } catch (Exception e) {
                 System.err.println("No se pudo actualizar menú en pedidos: " + e.getMessage());
+                e.printStackTrace();
             }
         }
     }

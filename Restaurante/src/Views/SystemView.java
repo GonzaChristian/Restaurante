@@ -137,6 +137,7 @@ public class SystemView extends javax.swing.JFrame {
         cmbMesas.addActionListener(evt -> {
             pedidoController.cambiarMesa();
         });
+        
 
         // Listener del botón Agregar
         jButtonAgregar.addActionListener(evt -> {
@@ -260,6 +261,10 @@ public class SystemView extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 reportesController.imprimirReporte(pnlReportes);
             }
+        });
+        // TextField búsqueda - Enter para buscar
+        jTextFieldBuscarReporte.addActionListener(evt -> {
+            reportesController.buscar();
         });
     }
     
