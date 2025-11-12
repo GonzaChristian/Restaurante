@@ -124,17 +124,14 @@ public class SystemView extends javax.swing.JFrame {
     );
         
     // ========== CONFIGURAR PANEL REPORTES ==========
-    reportesController = new ReportesController();
-    reportesController.inicializarComponentes(jTable7);    
-        
-        
-        
-        
-        
-        System.out.println("✅ Sistema inicializado correctamente");
-        
+       reportesController = new ReportesController();
+       reportesController.inicializarComponentes(
+           jTableReportes,
+           jTextFieldBuscarReporte,  
+           jComboBoxFiltroReporte    
+    );
+       
     }
-    
     private void configurarListeners() {
         // Listener del ComboBox de mesas
         cmbMesas.addActionListener(evt -> {
@@ -179,29 +176,18 @@ public class SystemView extends javax.swing.JFrame {
             adminPedidosController.marcarCompletado(pnlAdministrarPedido);
         });
         
+
+        // ========== LISTENERS PANEL PLATILLOS ==========
         jButtonNuevoPlatillo.addActionListener(evt -> {
             platillosController.nuevoPlatillo(SystemView.this);
         });
 
         jButtonModificarPlatillo.addActionListener(evt -> {
-            platillosController.modificarPlatillo(SystemView.this);
+            platillosController.modificarPlatillo(SystemView.this); 
         });
 
         jButtonEliminarPlatillo.addActionListener(evt -> {
-            platillosController.eliminarPlatillo(pnlPlatillos);
-        });
-
-        // ========== LISTENERS PANEL PLATILLOS ==========
-        jButtonNuevoPlatillo.addActionListener(evt -> {
-            platillosController.nuevoPlatillo(SystemView.this);  // ← Cambiar a SystemView.this
-        });
-
-        jButtonModificarPlatillo.addActionListener(evt -> {
-            platillosController.modificarPlatillo(SystemView.this);  // ← Cambiar a SystemView.this
-        });
-
-        jButtonEliminarPlatillo.addActionListener(evt -> {
-            platillosController.eliminarPlatillo(pnlPlatillos);  // ← Este está bien
+            platillosController.eliminarPlatillo(pnlPlatillos);  
         });
 
         jButtonNuevoEmpleado.addActionListener(evt -> {
@@ -242,8 +228,9 @@ public class SystemView extends javax.swing.JFrame {
             insumoController.eliminarInsumo(pnlInventario);
         });
         
+        // ========== LISTENERS PANEL REPORTES ==========
+    
         // Botón "PLATILLOS" - Mostrar platillos más vendidos
-        // Según tu diseño, este botón está dentro de jPanelButtonPlatillos
         jPanelButtonPlatillos.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -275,6 +262,7 @@ public class SystemView extends javax.swing.JFrame {
             }
         });
     }
+    
 
     
 
@@ -538,7 +526,10 @@ public class SystemView extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jPanel12 = new javax.swing.JPanel();
         jScrollPane7 = new javax.swing.JScrollPane();
-        jTable7 = new javax.swing.JTable();
+        jTableReportes = new javax.swing.JTable();
+        jTextFieldBuscarReporte = new javax.swing.JTextField();
+        jLabel21 = new javax.swing.JLabel();
+        jComboBoxFiltroReporte = new javax.swing.JComboBox<>();
         jPanelButtonPlatillos = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jPanelButtonInventario = new javax.swing.JPanel();
@@ -722,6 +713,11 @@ public class SystemView extends javax.swing.JFrame {
         jButtonNuevoPlatillo.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButtonNuevoPlatillo.setForeground(new java.awt.Color(255, 255, 255));
         jButtonNuevoPlatillo.setText("Nuevo...");
+        jButtonNuevoPlatillo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonNuevoPlatilloActionPerformed(evt);
+            }
+        });
         jPanel17.add(jButtonNuevoPlatillo, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 140, 120, 40));
 
         jButtonEliminarPlatillo.setBackground(new java.awt.Color(153, 51, 0));
@@ -1803,7 +1799,7 @@ public class SystemView extends javax.swing.JFrame {
         jPanel12.setBackground(new java.awt.Color(209, 188, 172));
         jPanel12.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTable7.setModel(new javax.swing.table.DefaultTableModel(
+        jTableReportes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -1814,9 +1810,16 @@ public class SystemView extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane7.setViewportView(jTable7);
+        jScrollPane7.setViewportView(jTableReportes);
 
-        jPanel12.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, 930, 470));
+        jPanel12.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 70, 930, 430));
+        jPanel12.add(jTextFieldBuscarReporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 30, 400, 30));
+
+        jLabel21.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel21.setText("Buscar:");
+        jPanel12.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 37, -1, -1));
+
+        jPanel12.add(jComboBoxFiltroReporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 30, 100, 30));
 
         pnlReportes.add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, 1020, 540));
 
@@ -2058,6 +2061,10 @@ public class SystemView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonModificarInsumoActionPerformed
 
+    private void jButtonNuevoPlatilloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoPlatilloActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonNuevoPlatilloActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -2138,6 +2145,7 @@ public class SystemView extends javax.swing.JFrame {
     private javax.swing.JButton jButtonQuitarLomoSaltadoDeMenu;
     private javax.swing.JButton jButtonQuitarPlatilloDeMenu;
     private javax.swing.JButton jButtonVerDetalle;
+    private javax.swing.JComboBox<String> jComboBoxFiltroReporte;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel100;
@@ -2224,6 +2232,7 @@ public class SystemView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
@@ -2309,7 +2318,6 @@ public class SystemView extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPanePlatillos;
     public javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable5;
-    private javax.swing.JTable jTable7;
     private javax.swing.JTable jTableAdministrarPedidos;
     private javax.swing.JTable jTableClientes;
     private javax.swing.JTable jTableEmpleados;
@@ -2317,10 +2325,12 @@ public class SystemView extends javax.swing.JFrame {
     private javax.swing.JTable jTableMenuDelDia;
     private javax.swing.JTable jTableMenuDia;
     private javax.swing.JTable jTablePedidoActual;
+    private javax.swing.JTable jTableReportes;
     private javax.swing.JTextField jTextFieldAlmacenInsumo;
     private javax.swing.JTextField jTextFieldApellidoCliente;
     private javax.swing.JTextField jTextFieldApellidoEmpleado;
     private javax.swing.JTextField jTextFieldBuscarPedido;
+    private javax.swing.JTextField jTextFieldBuscarReporte;
     private javax.swing.JTextField jTextFieldCantidad;
     private javax.swing.JTextField jTextFieldCargoEmpleado;
     private javax.swing.JTextField jTextFieldCategoriaInsumo;
