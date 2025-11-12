@@ -1,6 +1,7 @@
 package controllers;
 
 import dao.PlatilloDAO;
+import dao.MenuDelDiaDAO;
 import models.Platillo;
 import Views.PanelPlatillo;
 import Views.DialogPlatillosAñadir;
@@ -18,6 +19,7 @@ import java.util.List;
 public class PlatillosController {
     
     private PlatilloDAO platilloDAO;
+    private MenuDelDiaDAO menuDelDiaDAO;
     
     // Componentes de la vista
     private JTable tblMenuDia;
@@ -37,6 +39,7 @@ public class PlatillosController {
     
     public PlatillosController() {
         this.platilloDAO = new PlatilloDAO();
+        this.menuDelDiaDAO = new MenuDelDiaDAO();
         this.panelesPlatillos = new ArrayList<>();
         this.platillosEnMenu = new ArrayList<>();
     }
@@ -157,19 +160,21 @@ public class PlatillosController {
     }
     
     /**
-     * Cargar platillos en el menú del día (inicialmente todos)
+     * Cargar platillos en el menú del día (inicialmente vacío)
      */
     public void cargarPlatillosEnMenu() {
         modeloMenuDia.setRowCount(0);
-        platillosEnMenu = platilloDAO.obtenerTodos();
+        platillosEnMenu.clear(); // Iniciar vacío
         
-        for (Platillo p : platillosEnMenu) {
-            modeloMenuDia.addRow(new Object[]{
-                p.getNombre(),
-                p.getNombreCategoria(),
-                String.format("S/. %.2f", p.getPrecio())
-            });
-        }
+        // Si quieres cargar todos al inicio, descomenta estas líneas:
+        // platillosEnMenu = platilloDAO.obtenerTodos();
+        // for (Platillo p : platillosEnMenu) {
+        //     modeloMenuDia.addRow(new Object[]{
+        //         p.getNombre(),
+        //         p.getNombreCategoria(),
+        //         String.format("S/. %.2f", p.getPrecio())
+        //     });
+        // }
         
         actualizarMenuEnPedidos();
     }

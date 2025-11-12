@@ -9,12 +9,14 @@ import models.Insumo;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.sql.*;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import conexion.ConexionSQL;
+import com.toedter.calendar.JDateChooser;
 
 /**
- * Controlador para gestionar el panel de Reportes
+ * Controlador para gestionar el panel de Reportes con búsqueda y filtros
  */
 public class ReportesController {
     
@@ -25,6 +27,11 @@ public class ReportesController {
     // Componentes de la vista
     private JTable tblReportes;
     private DefaultTableModel modeloTabla;
+    private JTextField txtBuscar;
+    private JComboBox<String> cmbFiltro;
+    private JDateChooser dateChooserInicio;
+    private JDateChooser dateChooserFin;
+    private JPanel pnlFiltroFechas; // Panel que contiene los dateChoosers
     
     // Tipo de reporte actual
     private enum TipoReporte {
@@ -41,10 +48,17 @@ public class ReportesController {
     /**
      * Inicializar componentes
      */
-    public void inicializarComponentes(JTable tblReportes) {
+    public void inicializarComponentes(
+        JTable tblReportes,
+        JTextField txtBuscar,
+        JComboBox<String> cmbFiltro
+    ) {
         this.tblReportes = tblReportes;
+        this.txtBuscar = txtBuscar;
+        this.cmbFiltro = cmbFiltro;
+        
         configurarTablaInicial();
-        mostrarReportePlatillos(); // Mostrar platillos por defecto
+        mostrarReportePlatillos();
     }
     
     /**
@@ -66,7 +80,24 @@ public class ReportesController {
     public void mostrarReportePlatillos() {
         tipoActual = TipoReporte.PLATILLOS;
         
-        // Configurar columnas
+        // Configurar combo de filtros
+        cmbFiltro.removeAllItems();
+        cmbFiltro.addItem("Todas las Categorías");
+        cmbFiltro.addItem("Bebidas");
+        cmbFiltro.addItem("Entradas");
+        cmbFiltro.addItem("Platos Fuertes");
+        cmbFiltro.addItem("Postres");
+        
+        // Limpiar búsqueda
+        txtBuscar.setText("");
+        
+        cargarDatosPlatillos(null, null);
+    }
+    
+    /**
+     * Cargar datos de platillos con filtros
+     */
+    private void cargarDatosPlatillos(String busqueda, String categoria) {
         modeloTabla = new DefaultTableModel(
             new Object[]{"Posición", "Platillo", "Categoría", "Veces Vendido", "Total Vendido"}, 0) {
             @Override
@@ -76,22 +107,43 @@ public class ReportesController {
         };
         tblReportes.setModel(modeloTabla);
         
-        // Obtener datos
-        String sql = "SELECT p.nombre AS platillo, c.nombre AS categoria, " +
-                    "COUNT(dp.id_detalle) AS veces_vendido, " +
-                    "SUM(dp.cantidad) AS cantidad_total, " +
-                    "SUM(dp.subtotal) AS total_vendido " +
-                    "FROM DetallePedido dp " +
-                    "INNER JOIN Platillos p ON dp.id_platillo = p.id_platillo " +
-                    "LEFT JOIN Categorias c ON p.id_categoria = c.id_categoria " +
-                    "GROUP BY p.id_platillo, p.nombre, c.nombre " +
-                    "ORDER BY veces_vendido DESC, total_vendido DESC";
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT p.nombre AS platillo, c.nombre AS categoria, ");
+        sql.append("COUNT(dp.id_detalle) AS veces_vendido, ");
+        sql.append("SUM(dp.cantidad) AS cantidad_total, ");
+        sql.append("SUM(dp.subtotal) AS total_vendido ");
+        sql.append("FROM DetallePedido dp ");
+        sql.append("INNER JOIN Platillos p ON dp.id_platillo = p.id_platillo ");
+        sql.append("LEFT JOIN Categorias c ON p.id_categoria = c.id_categoria ");
+        sql.append("WHERE 1=1 ");
+        
+        // Filtro por búsqueda
+        if (busqueda != null && !busqueda.trim().isEmpty()) {
+            sql.append("AND p.nombre LIKE ? ");
+        }
+        
+        // Filtro por categoría
+        if (categoria != null && !categoria.equals("Todas las Categorías")) {
+            sql.append("AND c.nombre = ? ");
+        }
+        
+        sql.append("GROUP BY p.id_platillo, p.nombre, c.nombre ");
+        sql.append("ORDER BY veces_vendido DESC, total_vendido DESC");
         
         try (Connection con = ConexionSQL.conectar();
-             PreparedStatement ps = con.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
+             PreparedStatement ps = con.prepareStatement(sql.toString())) {
             
+            int paramIndex = 1;
+            if (busqueda != null && !busqueda.trim().isEmpty()) {
+                ps.setString(paramIndex++, "%" + busqueda + "%");
+            }
+            if (categoria != null && !categoria.equals("Todas las Categorías")) {
+                ps.setString(paramIndex++, categoria);
+            }
+            
+            ResultSet rs = ps.executeQuery();
             int posicion = 1;
+            
             while (rs.next()) {
                 String emoji = obtenerEmoji(posicion);
                 modeloTabla.addRow(new Object[]{
@@ -105,7 +157,7 @@ public class ReportesController {
             }
             
             if (modeloTabla.getRowCount() == 0) {
-                modeloTabla.addRow(new Object[]{"Sin datos", "No hay ventas registradas", "-", "-", "-"});
+                modeloTabla.addRow(new Object[]{"Sin resultados", "No se encontraron platillos", "-", "-", "-"});
             }
             
         } catch (SQLException e) {
@@ -122,7 +174,23 @@ public class ReportesController {
     public void mostrarReporteInventario() {
         tipoActual = TipoReporte.INVENTARIO;
         
-        // Configurar columnas
+        // Configurar combo de filtros
+        cmbFiltro.removeAllItems();
+        cmbFiltro.addItem("Buscar por: Nombre");
+        cmbFiltro.addItem("Buscar por: Categoría");
+        cmbFiltro.addItem("Buscar por: Stock Máximo");
+        cmbFiltro.addItem("Buscar por: Almacén");
+        cmbFiltro.addItem("Buscar por: Proveedor");
+        
+        txtBuscar.setText("");
+        
+        cargarDatosInventario(null, "Nombre");
+    }
+    
+    /**
+     * Cargar datos de inventario con filtros
+     */
+    private void cargarDatosInventario(String busqueda, String tipoBusqueda) {
         modeloTabla = new DefaultTableModel(
             new Object[]{"Código", "Insumo", "Categoría", "Stock", "Estado", "Almacén", "Proveedor"}, 0) {
             @Override
@@ -132,46 +200,112 @@ public class ReportesController {
         };
         tblReportes.setModel(modeloTabla);
         
-        // Obtener datos
-        List<Insumo> insumos = insumoDAO.obtenerTodos();
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT i.codigo, i.nombre, c.nombre AS categoria, i.stock, ");
+        sql.append("i.almacen, i.proveedor ");
+        sql.append("FROM InventarioInsumos i ");
+        sql.append("LEFT JOIN Categorias c ON i.id_categoria = c.id_categoria ");
+        sql.append("WHERE 1=1 ");
         
-        for (Insumo i : insumos) {
-            String estado;
-            if (i.getStock() == 0) {
-                estado = "❌ SIN STOCK";
-            } else if (i.getStock() < 10) {
-                estado = "⚠️ STOCK BAJO";
-            } else if (i.getStock() < 30) {
-                estado = "🟡 STOCK MEDIO";
-            } else {
-                estado = "✅ STOCK OK";
+        if (busqueda != null && !busqueda.trim().isEmpty()) {
+            switch (tipoBusqueda) {
+                case "Nombre":
+                case "Buscar por: Nombre":
+                    sql.append("AND i.nombre LIKE ? ");
+                    break;
+                case "Categoría":
+                case "Buscar por: Categoría":
+                    sql.append("AND c.nombre LIKE ? ");
+                    break;
+                case "Stock Máximo":
+                case "Buscar por: Stock Máximo":
+                    sql.append("AND i.stock <= ? ");
+                    break;
+                case "Almacén":
+                case "Buscar por: Almacén":
+                    sql.append("AND i.almacen LIKE ? ");
+                    break;
+                case "Proveedor":
+                case "Buscar por: Proveedor":
+                    sql.append("AND i.proveedor LIKE ? ");
+                    break;
             }
-            
-            modeloTabla.addRow(new Object[]{
-                i.getCodigo(),
-                i.getNombre(),
-                i.getNombreCategoria(),
-                i.getStock() + " unidades",
-                estado,
-                i.getAlmacen(),
-                i.getProveedor()
-            });
         }
         
-        if (modeloTabla.getRowCount() == 0) {
-            modeloTabla.addRow(new Object[]{"Sin datos", "No hay insumos registrados", "-", "-", "-", "-", "-"});
+        sql.append("ORDER BY i.stock ASC, i.nombre");
+        
+        try (Connection con = ConexionSQL.conectar();
+             PreparedStatement ps = con.prepareStatement(sql.toString())) {
+            
+            if (busqueda != null && !busqueda.trim().isEmpty()) {
+                if (tipoBusqueda.contains("Stock Máximo")) {
+                    try {
+                        ps.setInt(1, Integer.parseInt(busqueda));
+                    } catch (NumberFormatException e) {
+                        ps.setInt(1, 999999);
+                    }
+                } else {
+                    ps.setString(1, "%" + busqueda + "%");
+                }
+            }
+            
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()) {
+                int stock = rs.getInt("stock");
+                String estado;
+                if (stock == 0) {
+                    estado = "❌ SIN STOCK";
+                } else if (stock < 10) {
+                    estado = "⚠️ STOCK BAJO";
+                } else if (stock < 30) {
+                    estado = "🟡 STOCK MEDIO";
+                } else {
+                    estado = "✅ STOCK OK";
+                }
+                
+                modeloTabla.addRow(new Object[]{
+                    rs.getString("codigo"),
+                    rs.getString("nombre"),
+                    rs.getString("categoria"),
+                    stock + " unidades",
+                    estado,
+                    rs.getString("almacen"),
+                    rs.getString("proveedor")
+                });
+            }
+            
+            if (modeloTabla.getRowCount() == 0) {
+                modeloTabla.addRow(new Object[]{"Sin resultados", "No se encontraron insumos", "-", "-", "-", "-", "-"});
+            }
+            
+        } catch (SQLException e) {
+            System.err.println("Error al generar reporte de inventario: " + e.getMessage());
         }
         
         ajustarAnchoColumnas(new int[]{80, 200, 120, 100, 120, 120, 150});
     }
     
     /**
-     * Mostrar reporte de caja (ventas/ganancias)
+     * Mostrar reporte de caja
      */
     public void mostrarReporteCaja() {
         tipoActual = TipoReporte.CAJA;
         
-        // Configurar columnas
+        // Configurar combo de filtros
+        cmbFiltro.removeAllItems();
+        cmbFiltro.addItem("Filtrar por: Fecha");
+        
+        txtBuscar.setText("");
+        txtBuscar.setToolTipText("Buscar por número de mesa");
+        
+        cargarDatosCaja(null, null, null);
+    }
+    
+    /**
+     * Cargar datos de caja con filtros
+     */
+    private void cargarDatosCaja(String busquedaMesa, LocalDate fechaInicio, LocalDate fechaFin) {
         modeloTabla = new DefaultTableModel(
             new Object[]{"ID Pedido", "Mesa", "Fecha", "Hora", "Subtotal", "IGV", "Total", "Estado"}, 0) {
             @Override
@@ -181,47 +315,127 @@ public class ReportesController {
         };
         tblReportes.setModel(modeloTabla);
         
-        // Obtener datos
-        List<Pedido> pedidos = pedidoDAO.obtenerTodos();
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT p.id_pedido, m.numero_mesa, p.fecha, p.hora, ");
+        sql.append("p.subtotal, p.igv, p.total, p.estado ");
+        sql.append("FROM Pedidos p ");
+        sql.append("INNER JOIN Mesas m ON p.id_mesa = m.id_mesa ");
+        sql.append("WHERE 1=1 ");
         
-        DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        DateTimeFormatter formatoHora = DateTimeFormatter.ofPattern("HH:mm");
-        
-        double totalSubtotal = 0;
-        double totalIGV = 0;
-        double totalGeneral = 0;
-        
-        for (Pedido p : pedidos) {
-            modeloTabla.addRow(new Object[]{
-                p.getIdPedido(),
-                "Mesa " + p.getNumeroMesa(),
-                p.getFecha().format(formatoFecha),
-                p.getHora().format(formatoHora),
-                String.format("S/. %.2f", p.getSubtotal()),
-                String.format("S/. %.2f", p.getIgv()),
-                String.format("S/. %.2f", p.getTotal()),
-                p.getEstado()
-            });
-            
-            totalSubtotal += p.getSubtotal();
-            totalIGV += p.getIgv();
-            totalGeneral += p.getTotal();
+        // Filtro por mesa
+        if (busquedaMesa != null && !busquedaMesa.trim().isEmpty()) {
+            sql.append("AND m.numero_mesa = ? ");
         }
         
-        if (modeloTabla.getRowCount() > 0) {
-            // Agregar fila de totales
-            modeloTabla.addRow(new Object[]{
-                "", "", "", "TOTALES:",
-                String.format("S/. %.2f", totalSubtotal),
-                String.format("S/. %.2f", totalIGV),
-                String.format("S/. %.2f", totalGeneral),
-                ""
-            });
-        } else {
-            modeloTabla.addRow(new Object[]{"Sin datos", "No hay pedidos registrados", "-", "-", "-", "-", "-", "-"});
+        // Filtro por fechas
+        if (fechaInicio != null) {
+            sql.append("AND p.fecha >= ? ");
+        }
+        if (fechaFin != null) {
+            sql.append("AND p.fecha <= ? ");
+        }
+        
+        sql.append("ORDER BY p.fecha DESC, p.hora DESC");
+        
+        try (Connection con = ConexionSQL.conectar();
+             PreparedStatement ps = con.prepareStatement(sql.toString())) {
+            
+            int paramIndex = 1;
+            if (busquedaMesa != null && !busquedaMesa.trim().isEmpty()) {
+                try {
+                    ps.setInt(paramIndex++, Integer.parseInt(busquedaMesa));
+                } catch (NumberFormatException e) {
+                    ps.setInt(paramIndex++, -1);
+                }
+            }
+            if (fechaInicio != null) {
+                ps.setDate(paramIndex++, java.sql.Date.valueOf(fechaInicio));
+            }
+            if (fechaFin != null) {
+                ps.setDate(paramIndex++, java.sql.Date.valueOf(fechaFin));
+            }
+            
+            ResultSet rs = ps.executeQuery();
+            
+            DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            DateTimeFormatter formatoHora = DateTimeFormatter.ofPattern("HH:mm");
+            
+            double totalSubtotal = 0;
+            double totalIGV = 0;
+            double totalGeneral = 0;
+            
+            while (rs.next()) {
+                double subtotal = rs.getDouble("subtotal");
+                double igv = rs.getDouble("igv");
+                double total = rs.getDouble("total");
+                
+                modeloTabla.addRow(new Object[]{
+                    rs.getInt("id_pedido"),
+                    "Mesa " + rs.getInt("numero_mesa"),
+                    rs.getDate("fecha").toLocalDate().format(formatoFecha),
+                    rs.getTime("hora").toLocalTime().format(formatoHora),
+                    String.format("S/. %.2f", subtotal),
+                    String.format("S/. %.2f", igv),
+                    String.format("S/. %.2f", total),
+                    rs.getString("estado")
+                });
+                
+                totalSubtotal += subtotal;
+                totalIGV += igv;
+                totalGeneral += total;
+            }
+            
+            if (modeloTabla.getRowCount() > 0) {
+                modeloTabla.addRow(new Object[]{
+                    "", "", "", "TOTALES:",
+                    String.format("S/. %.2f", totalSubtotal),
+                    String.format("S/. %.2f", totalIGV),
+                    String.format("S/. %.2f", totalGeneral),
+                    ""
+                });
+            } else {
+                modeloTabla.addRow(new Object[]{"Sin resultados", "No se encontraron pedidos", "-", "-", "-", "-", "-", "-"});
+            }
+            
+        } catch (SQLException e) {
+            System.err.println("Error al generar reporte de caja: " + e.getMessage());
         }
         
         ajustarAnchoColumnas(new int[]{80, 100, 100, 80, 100, 100, 100, 100});
+    }
+    
+    /**
+     * Buscar según tipo de reporte actual
+     */
+    public void buscar() {
+        String textoBusqueda = txtBuscar.getText().trim();
+        
+        switch (tipoActual) {
+            case PLATILLOS:
+                String categoria = (String) cmbFiltro.getSelectedItem();
+                cargarDatosPlatillos(textoBusqueda, categoria);
+                break;
+                
+            case INVENTARIO:
+                String tipoBusqueda = (String) cmbFiltro.getSelectedItem();
+                cargarDatosInventario(textoBusqueda, tipoBusqueda);
+                break;
+                
+            case CAJA:
+                cargarDatosCaja(textoBusqueda, null, null);
+                break;
+        }
+    }
+    
+    /**
+     * Filtrar por fechas (solo para CAJA)
+     */
+    public void filtrarPorFechas(LocalDate fechaInicio, LocalDate fechaFin) {
+        if (tipoActual == TipoReporte.CAJA) {
+            String busquedaMesa = txtBuscar.getText().trim();
+            busquedaMesa = busquedaMesa.isEmpty() ? null : busquedaMesa;
+            cargarDatosCaja(busquedaMesa, fechaInicio, fechaFin);
+        }
     }
     
     /**
@@ -241,16 +455,14 @@ public class ReportesController {
                 break;
         }
         
-        // Generar texto del reporte
         StringBuilder reporte = new StringBuilder();
         reporte.append("╔════════════════════════════════════════════════════╗\n");
         reporte.append("║          RESTAURANTE MERY - REPORTES              ║\n");
         reporte.append("╠════════════════════════════════════════════════════╣\n");
         reporte.append("║  Tipo: ").append(tipoReporte).append("\n");
-        reporte.append("║  Fecha: ").append(java.time.LocalDate.now()).append("\n");
+        reporte.append("║  Fecha: ").append(LocalDate.now()).append("\n");
         reporte.append("╚════════════════════════════════════════════════════╝\n\n");
         
-        // Agregar datos de la tabla
         for (int col = 0; col < modeloTabla.getColumnCount(); col++) {
             reporte.append(modeloTabla.getColumnName(col)).append("\t");
         }
@@ -264,7 +476,6 @@ public class ReportesController {
             reporte.append("\n");
         }
         
-        // Mostrar en ventana
         JTextArea textArea = new JTextArea(reporte.toString());
         textArea.setEditable(false);
         textArea.setFont(new java.awt.Font("Monospaced", java.awt.Font.PLAIN, 11));
@@ -284,9 +495,6 @@ public class ReportesController {
         }
     }
     
-    /**
-     * Obtener emoji según posición
-     */
     private String obtenerEmoji(int posicion) {
         switch (posicion) {
             case 1: return "🥇";
@@ -296,58 +504,9 @@ public class ReportesController {
         }
     }
     
-    /**
-     * Ajustar ancho de columnas
-     */
     private void ajustarAnchoColumnas(int[] anchos) {
         for (int i = 0; i < anchos.length && i < tblReportes.getColumnCount(); i++) {
             tblReportes.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
         }
-    }
-    
-    /**
-     * Obtener resumen general
-     */
-    public String obtenerResumenGeneral() {
-        StringBuilder resumen = new StringBuilder();
-        
-        try (Connection con = ConexionSQL.conectar()) {
-            // Total de pedidos
-            String sqlPedidos = "SELECT COUNT(*) AS total FROM Pedidos";
-            PreparedStatement ps1 = con.prepareStatement(sqlPedidos);
-            ResultSet rs1 = ps1.executeQuery();
-            if (rs1.next()) {
-                resumen.append("📊 Total Pedidos: ").append(rs1.getInt("total")).append("\n");
-            }
-            rs1.close();
-            ps1.close();
-            
-            // Ventas totales
-            String sqlVentas = "SELECT SUM(total) AS ventas FROM Pedidos WHERE estado = 'Completado'";
-            PreparedStatement ps2 = con.prepareStatement(sqlVentas);
-            ResultSet rs2 = ps2.executeQuery();
-            if (rs2.next()) {
-                resumen.append("💰 Ventas Totales: S/. ").append(String.format("%.2f", rs2.getDouble("ventas"))).append("\n");
-            }
-            rs2.close();
-            ps2.close();
-            
-            // Platillo más vendido
-            String sqlTop = "SELECT p.nombre, COUNT(*) AS veces FROM DetallePedido dp " +
-                          "INNER JOIN Platillos p ON dp.id_platillo = p.id_platillo " +
-                          "GROUP BY p.nombre ORDER BY veces DESC";
-            PreparedStatement ps3 = con.prepareStatement(sqlTop);
-            ResultSet rs3 = ps3.executeQuery();
-            if (rs3.next()) {
-                resumen.append("🏆 Más Vendido: ").append(rs3.getString("nombre")).append("\n");
-            }
-            rs3.close();
-            ps3.close();
-            
-        } catch (SQLException e) {
-            System.err.println("Error al obtener resumen: " + e.getMessage());
-        }
-        
-        return resumen.toString();
     }
 }
