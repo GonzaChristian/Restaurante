@@ -39,6 +39,7 @@ public class DialogPlatillosAñadir extends javax.swing.JDialog {
         lblImagen = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setBackground(new java.awt.Color(204, 255, 255));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setText("Nombre:");
@@ -50,6 +51,7 @@ public class DialogPlatillosAñadir extends javax.swing.JDialog {
         jLabel3.setText("jLabel3");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, -1, 20));
 
+        jButtonAñadir.setBackground(new java.awt.Color(204, 255, 255));
         jButtonAñadir.setText("Añadir");
         getContentPane().add(jButtonAñadir, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 270, 110, 40));
         getContentPane().add(jTextFieldNombrePlatillo, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 90, 250, 30));
