@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 public class ConexionSQL {
-    private static final String URL = "jdbc:sqlserver://DESKTOP-2U3S037\\SQLEXPRESS:1435;databaseName=RestauranteMery;encrypt=true;trustServerCertificate=true;";
+    private static final String URL = "jdbc:sqlserver://DESKTOP-E9SKL53\\SQLEXPRESS:1435;databaseName=RestauranteMery;encrypt=true;trustServerCertificate=true;";
     private static final String USER = "gonza";      
     private static final String PASSWORD = "123456"; 
 
