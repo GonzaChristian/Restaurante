@@ -14,6 +14,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 import conexion.ConexionSQL;
 import com.toedter.calendar.JDateChooser;
+import java.awt.Dimension;
+import java.awt.Font;
 
 /**
  * Controlador para gestionar el panel de Reportes con búsqueda y filtros
@@ -442,56 +444,93 @@ public class ReportesController {
      * Imprimir reporte actual
      */
     public void imprimirReporte(JComponent parent) {
-        String tipoReporte = "";
+        if (modeloTabla.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(parent,
+                "No hay datos para imprimir",
+                "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        String tituloReporte = "";
         switch (tipoActual) {
             case PLATILLOS:
-                tipoReporte = "Platillos Más Vendidos";
+                tituloReporte = "REPORTE DE PLATILLOS MÁS VENDIDOS";
                 break;
             case INVENTARIO:
-                tipoReporte = "Inventario de Insumos";
+                tituloReporte = "REPORTE DE INVENTARIO DE INSUMOS";
                 break;
             case CAJA:
-                tipoReporte = "Reporte de Caja";
+                tituloReporte = "REPORTE DE CAJA - VENTAS";
                 break;
         }
         
+        // Vista previa antes de imprimir
+        int opcion = JOptionPane.showConfirmDialog(parent,
+            "¿Desea ver una vista previa antes de imprimir?",
+            "Imprimir Reporte",
+            JOptionPane.YES_NO_CANCEL_OPTION);
+        
+        if (opcion == JOptionPane.YES_OPTION) {
+            // Mostrar vista previa
+            mostrarVistaPrevia(parent, tituloReporte);
+        } else if (opcion == JOptionPane.NO_OPTION) {
+            // Imprimir directamente
+            utils.ImpresionHelper.imprimirReporte(tituloReporte, modeloTabla, parent);
+        }
+        // Si es CANCEL, no hacer nada
+    }
+    
+    /**
+     * Mostrar vista previa del reporte
+     */
+    private void mostrarVistaPrevia(JComponent parent, String tituloReporte) {
         StringBuilder reporte = new StringBuilder();
         reporte.append("╔════════════════════════════════════════════════════╗\n");
         reporte.append("║          RESTAURANTE MERY - REPORTES              ║\n");
         reporte.append("╠════════════════════════════════════════════════════╣\n");
-        reporte.append("║  Tipo: ").append(tipoReporte).append("\n");
-        reporte.append("║  Fecha: ").append(LocalDate.now()).append("\n");
+        reporte.append("║  Tipo: ").append(tituloReporte).append("\n");
+        reporte.append("║  Fecha: ").append(LocalDate.now().format(
+            java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))).append("\n");
         reporte.append("╚════════════════════════════════════════════════════╝\n\n");
         
+        // Encabezados
         for (int col = 0; col < modeloTabla.getColumnCount(); col++) {
-            reporte.append(modeloTabla.getColumnName(col)).append("\t");
+            reporte.append(String.format("%-20s", modeloTabla.getColumnName(col)));
         }
         reporte.append("\n");
-        reporte.append("─".repeat(80)).append("\n");
+        reporte.append("─".repeat(100)).append("\n");
         
+        // Datos
         for (int row = 0; row < modeloTabla.getRowCount(); row++) {
             for (int col = 0; col < modeloTabla.getColumnCount(); col++) {
-                reporte.append(modeloTabla.getValueAt(row, col)).append("\t");
+                Object value = modeloTabla.getValueAt(row, col);
+                String text = value != null ? value.toString() : "";
+                reporte.append(String.format("%-20s", text.length() > 18 ? text.substring(0, 17) + "." : text));
             }
             reporte.append("\n");
         }
         
+        reporte.append("\n");
+        reporte.append("═".repeat(100)).append("\n");
+        reporte.append("Generado el: ").append(java.time.LocalDateTime.now().format(
+            java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"))).append("\n");
+        
+        // Mostrar en JTextArea
         JTextArea textArea = new JTextArea(reporte.toString());
         textArea.setEditable(false);
-        textArea.setFont(new java.awt.Font("Monospaced", java.awt.Font.PLAIN, 11));
+        textArea.setFont(new Font("Monospaced", Font.PLAIN, 10));
         
         JScrollPane scrollPane = new JScrollPane(textArea);
-        scrollPane.setPreferredSize(new java.awt.Dimension(700, 500));
+        scrollPane.setPreferredSize(new Dimension(800, 600));
         
         int opcion = JOptionPane.showConfirmDialog(parent, scrollPane,
-            "Vista Previa - " + tipoReporte,
+            "Vista Previa - " + tituloReporte,
             JOptionPane.OK_CANCEL_OPTION,
             JOptionPane.PLAIN_MESSAGE);
         
         if (opcion == JOptionPane.OK_OPTION) {
-            JOptionPane.showMessageDialog(parent,
-                "Reporte listo para imprimir.\n(Función de impresión física en desarrollo)",
-                "Imprimir", JOptionPane.INFORMATION_MESSAGE);
+            // Proceder a imprimir
+            utils.ImpresionHelper.imprimirReporte(tituloReporte, modeloTabla, parent);
         }
     }
     
