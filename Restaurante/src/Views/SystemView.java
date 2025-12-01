@@ -156,9 +156,7 @@ public class SystemView extends javax.swing.JFrame {
 
         // Listener del botón Imprimir (placeholder por ahora)
         btnImprimirVoucher.addActionListener(evt -> {
-            javax.swing.JOptionPane.showMessageDialog(SystemView.this, 
-                "Función de impresión en desarrollo", 
-                "Info", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+            adminPedidosController.imprimirVoucherPedido(pnlGenerarPedido);
         });
         
         jButtonBuscar.addActionListener(evt -> {
@@ -629,6 +627,11 @@ public class SystemView extends javax.swing.JFrame {
         pnlGenerarPedido.add(lblIGV, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 540, -1, -1));
 
         btnImprimirVoucher.setText("🖨 Imprimir");
+        btnImprimirVoucher.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImprimirVoucherActionPerformed(evt);
+            }
+        });
         pnlGenerarPedido.add(btnImprimirVoucher, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 650, 150, 50));
 
         btnPedidoEnProceso.setText("Pedido en Proceso");
@@ -2069,6 +2072,10 @@ public class SystemView extends javax.swing.JFrame {
     private void jButtonNuevoPlatilloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoPlatilloActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonNuevoPlatilloActionPerformed
+
+    private void btnImprimirVoucherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirVoucherActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnImprimirVoucherActionPerformed
 
     /**
      * @param args the command line arguments

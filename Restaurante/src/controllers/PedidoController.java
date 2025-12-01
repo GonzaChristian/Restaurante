@@ -374,4 +374,167 @@ public class PedidoController {
             cmbMesas.setSelectedIndex(numeroMesa - 1);
         }
     }
+    
+    /**
+ * Imprimir voucher del pedido actual
+ */
+public void imprimirVoucherPedidoActual(JComponent parent) {
+    if (modeloPedidoActual.getRowCount() == 0) {
+        JOptionPane.showMessageDialog(parent,
+            "No hay pedido para imprimir",
+            "Aviso", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+    
+    Pedido pedido = obtenerPedidoDesdeTabla();
+    utils.ImpresoraPedidos.vistaPrevia(pedido, parent);
+}
+
+/**
+ * Imprimir comanda para la cocina
+ */
+public void imprimirComandaCocina(JComponent parent) {
+    if (modeloPedidoActual.getRowCount() == 0) {
+        JOptionPane.showMessageDialog(parent,
+            "No hay pedido para imprimir",
+            "Aviso", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+    
+    Pedido pedido = obtenerPedidoDesdeTabla();
+    
+    int opcion = JOptionPane.showConfirmDialog(parent,
+        "¿Desea imprimir la comanda para la cocina?",
+        "Imprimir Comanda",
+        JOptionPane.YES_NO_OPTION);
+    
+    if (opcion == JOptionPane.YES_OPTION) {
+        utils.ImpresoraPedidos.imprimirComanda(pedido, parent);
+    }
+}
+
+/**
+ * Marcar pedido como "En Proceso" e imprimir comanda
+ */
+public void marcarPedidoEnProcesoConImpresion(JComponent parent) {
+    if (modeloPedidoActual.getRowCount() == 0) {
+        JOptionPane.showMessageDialog(parent, 
+            "No hay platillos en el pedido", 
+            "Aviso", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+    
+    Pedido pedido = obtenerPedidoDesdeTabla();
+    
+    // Preguntar si desea imprimir
+    Object[] opciones = {"Guardar e Imprimir Comanda", "Solo Guardar", "Cancelar"};
+    int opcion = JOptionPane.showOptionDialog(parent,
+        "¿Desea imprimir la comanda para la cocina?",
+        "Registrar Pedido",
+        JOptionPane.YES_NO_CANCEL_OPTION,
+        JOptionPane.QUESTION_MESSAGE,
+        null,
+        opciones,
+        opciones[0]);
+    
+    if (opcion == 2 || opcion == JOptionPane.CLOSED_OPTION) {
+        return; // Cancelar
+    }
+    
+    // Guardar pedido
+    if (pedidoDAO.insertarPedido(pedido)) {
+        mesaDAO.marcarEnProceso(mesaActual);
+        pedidosPorMesa.remove(mesaActual);
+        
+        // Actualizar panel de mesas
+        refrescarPanelMesas();
+        
+        // Imprimir comanda si se seleccionó
+        if (opcion == 0) {
+            utils.ImpresoraPedidos.imprimirComanda(pedido, parent);
+        }
+        
+        JOptionPane.showMessageDialog(parent, 
+            "Pedido registrado exitosamente en la Mesa " + mesaActual, 
+            "Éxito", JOptionPane.INFORMATION_MESSAGE);
+    } else {
+        JOptionPane.showMessageDialog(parent, 
+            "Error al registrar pedido", 
+            "Error", JOptionPane.ERROR_MESSAGE);
+    }
+}
+
+/**
+ * Marcar pedido como completado e imprimir voucher
+ */
+public void marcarPedidoCompletadoConImpresion(JComponent parent) {
+    Mesa mesa = mesaDAO.obtenerPorNumero(mesaActual);
+    Pedido pedidoActivo = pedidoDAO.obtenerPedidoActivoPorMesa(mesa.getIdMesa());
+    
+    if (pedidoActivo == null) {
+        JOptionPane.showMessageDialog(parent, 
+            "No hay pedido activo en esta mesa", 
+            "Aviso", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+    
+    // Obtener pedido completo con detalles
+    Pedido pedidoCompleto = pedidoDAO.obtenerPorId(pedidoActivo.getIdPedido());
+    
+    // Preguntar si desea imprimir voucher
+    Object[] opciones = {"Completar e Imprimir", "Solo Completar", "Cancelar"};
+    int opcion = JOptionPane.showOptionDialog(parent,
+        "Pedido #" + pedidoCompleto.getIdPedido() + 
+        " - Total: S/ " + String.format("%.2f", pedidoCompleto.getTotal()) +
+        "\n¿Desea imprimir el voucher?",
+        "Completar Pedido",
+        JOptionPane.YES_NO_CANCEL_OPTION,
+        JOptionPane.QUESTION_MESSAGE,
+        null,
+        opciones,
+        opciones[0]);
+    
+    if (opcion == 2 || opcion == JOptionPane.CLOSED_OPTION) {
+        return; // Cancelar
+    }
+    
+    // Completar pedido
+    if (pedidoDAO.marcarCompletado(pedidoCompleto.getIdPedido())) {
+        mesaDAO.marcarDisponible(mesaActual);
+        modeloPedidoActual.setRowCount(0);
+        actualizarTotales();
+        
+        // Actualizar panel de mesas
+        refrescarPanelMesas();
+        
+        // Imprimir voucher si se seleccionó
+        if (opcion == 0) {
+            utils.ImpresoraPedidos.vistaPrevia(pedidoCompleto, parent);
+        }
+        
+        JOptionPane.showMessageDialog(parent, 
+            "Pedido completado - Mesa " + mesaActual + " disponible", 
+            "Éxito", JOptionPane.INFORMATION_MESSAGE);
+    }
+}
+
+/**
+ * Reimprimir voucher de un pedido existente
+ */
+public void reimprimirVoucher(int idPedido, JComponent parent) {
+    Pedido pedido = pedidoDAO.obtenerPorId(idPedido);
+    
+    if (pedido == null) {
+        JOptionPane.showMessageDialog(parent,
+            "No se pudo cargar el pedido",
+            "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+    
+    utils.ImpresoraPedidos.vistaPrevia(pedido, parent);
+}
+    
+    
+    
+    
 }
